@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>elea · Customer Presentation</title>
+<link rel="icon" href="https://yuna-collab.github.io/readdeck-ENG/favicon.svg">
+<style>/* elea design system — colors_and_type.css
+ * Source: elea Corporate Identity Guidelines (250602) + elea Website Brand Identity (Website Media Kit)
+ * Primary typeface: Roboto (web + UI). Local variable font files live in ./fonts.
+ */
+
+/* ---------- Webfont ---------- */
+@font-face {
+  font-family: "Roboto";
+  src: url("https://yuna-collab.github.io/readdeck-ENG/roboto-var.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("https://yuna-collab.github.io/readdeck-ENG/roboto-var-italic.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* ============== COLOR — Official CI palette ==============
+   * Source: elea Corporate Identity Guidelines (confirmed with brand owner).
+   * Core 8 + a brand gradient.
+   *
+   * Primary hexes:
+   *   #024059  deep teal-navy  — primary ink, dominant brand color
+   *   #002E41  darker navy     — deeper surface / section breaker
+   *   #0F7F95  mid teal        — secondary / links / hover navy
+   *   #73CAC4  turquoise       — signature accent (logo dots, AI capsule)
+   *   #CBE7E6  turquoise tint  — soft backgrounds, success-soft
+   *   #F6F6F7  neutral 50      — page background
+   *   #B2B2B2  grey            — tertiary / dividers on dark
+   *   #FFFFFF  white
+   * Gradient (cyan → navy):  #08B1EF → #005574
+   */
+
+  /* ---- Core CI colors (named exactly as the brand guideline) ---- */
+  --elea-deepblue:       #024059;  /* primary ink / brand navy */
+  --elea-deepblue-dark:  #002E41;  /* section-breaker navy */
+  --elea-midteal:        #0F7F95;  /* secondary teal */
+  --elea-turquoise:      #73CAC4;  /* signature accent */
+  --elea-turquoise-soft: #CBE7E6;  /* soft accent background */
+  --elea-neutral-50:     #F6F6F7;  /* page background */
+  --elea-grey:           #B2B2B2;  /* dividers / tertiary */
+  --elea-white:          #FFFFFF;
+
+  /* ---- Brand gradient (cyan → navy) ---- */
+  --elea-cyan:            #08B1EF;  /* gradient start */
+  --elea-cyan-deep:       #005574;  /* gradient end */
+  --elea-gradient-brand:  linear-gradient(135deg, #08B1EF 0%, #005574 100%);
+
+  /* ---- Deep-blue scale (derived · anchored on #024059 & #002E41) ---- */
+  --elea-deepblue-900:   #002E41;
+  --elea-deepblue-800:   #024059;
+  --elea-deepblue-700:   #0F5973;
+  --elea-deepblue-600:   #0F7F95;
+  --elea-deepblue-500:   #3E96A8;
+  --elea-deepblue-400:   #79B3C1;
+  --elea-deepblue-300:   #ADCED6;
+  --elea-deepblue-200:   #D2E4EA;
+  --elea-deepblue-100:   #E8F0F3;
+  --elea-deepblue-50:    #F3F7F9;
+
+  /* ---- Turquoise scale (derived · anchored on #73CAC4 & #CBE7E6) ---- */
+  --elea-turquoise-900:  #1F6F69;
+  --elea-turquoise-800:  #2E8981;
+  --elea-turquoise-700:  #43A198;
+  --elea-turquoise-600:  #5CB7AE;
+  --elea-turquoise-500:  #73CAC4;   /* = --elea-turquoise */
+  --elea-turquoise-400:  #95D7D2;
+  --elea-turquoise-300:  #B3E0DB;
+  --elea-turquoise-200:  #CBE7E6;   /* = --elea-turquoise-soft */
+  --elea-turquoise-100:  #DEF1EF;
+  --elea-turquoise-50:   #EEF8F7;
+
+  /* ---- Cyan gradient stops (broken out for tag/chip use) ---- */
+  --elea-cyan-500:       #08B1EF;
+  --elea-cyan-700:       #0386BF;
+  --elea-cyan-900:       #005574;
+
+  /* ---- Neutrals ---- */
+  --elea-ink:            #002E41;   /* strongest text on light */
+  --elea-ink-2:          #024059;   /* body text on light (= deep blue) */
+  --elea-ink-3:          #4B6976;   /* secondary */
+  --elea-ink-4:          #8299A3;   /* tertiary */
+  --elea-line:           #E6E8EA;   /* hairline (soft) */
+  --elea-line-strong:    #CFD3D6;
+  --elea-grey-500:       #B2B2B2;   /* = --elea-grey */
+  --elea-surface:        #FFFFFF;
+  --elea-surface-2:      #F6F6F7;   /* = --elea-neutral-50 */
+  --elea-surface-3:      #EEF0F1;
+  --elea-canvas:         #F3F5F6;   /* dotted-grid canvas background */
+
+  /* ---- Semantic ---- */
+  --elea-success:        #43A198;   /* turquoise-700 — confirms */
+  --elea-success-bg:     #DEF1EF;
+  --elea-warning:        #E8A23B;
+  --elea-warning-bg:     #FBEFDA;
+  --elea-danger:         #E05656;
+  --elea-danger-bg:      #FBE4E4;
+  --elea-info:           #08B1EF;
+  --elea-info-bg:        #E0F4FC;
+
+  /* Semantic role tokens (prefer these in components) */
+  --fg-1: var(--elea-ink);
+  --fg-2: var(--elea-ink-2);
+  --fg-3: var(--elea-ink-3);
+  --fg-4: var(--elea-ink-4);
+  --fg-inverse: #FFFFFF;
+  --fg-brand: var(--elea-deepblue);
+  --fg-accent: var(--elea-turquoise);
+
+  --bg-1: var(--elea-surface);
+  --bg-2: var(--elea-surface-2);
+  --bg-3: var(--elea-surface-3);
+  --bg-brand: var(--elea-deepblue);
+  --bg-accent: var(--elea-turquoise);
+  --bg-accent-soft: var(--elea-turquoise-100);
+  --bg-canvas: var(--elea-canvas);
+
+  --border-1: var(--elea-line);
+  --border-2: var(--elea-line-strong);
+  --border-brand: var(--elea-deepblue);
+  --border-focus: var(--elea-turquoise);
+
+  /* ============== TYPOGRAPHY ============== */
+  --font-sans: "Roboto", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Weights actually in use across elea assets */
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-bold:    700;
+  --fw-black:   900;
+
+  /* Type scale — optimized for product UI + marketing
+   * Headline sizes are generous because the brand favors clear, unornamented typography.
+   */
+  --fs-display:  56px;    --lh-display:  1.08;   --lt-display:  -0.02em;
+  --fs-h1:       40px;    --lh-h1:       1.12;   --lt-h1:       -0.015em;
+  --fs-h2:       32px;    --lh-h2:       1.15;   --lt-h2:       -0.01em;
+  --fs-h3:       24px;    --lh-h3:       1.25;   --lt-h3:       -0.005em;
+  --fs-h4:       20px;    --lh-h4:       1.3;    --lt-h4:       0;
+  --fs-body-lg:  18px;    --lh-body-lg:  1.55;
+  --fs-body:     16px;    --lh-body:     1.55;
+  --fs-body-sm:  14px;    --lh-body-sm:  1.5;
+  --fs-caption:  12px;    --lh-caption:  1.4;
+  --fs-eyebrow:  12px;    --lt-eyebrow:  0.08em;  /* all-caps, tracked */
+
+  /* ============== SPACING ============== */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ============== RADIUS ============== */
+  /* elea cards are generously rounded; pill buttons for primary CTAs. */
+  --radius-xs:  4px;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;   /* default card radius */
+  --radius-xl:  20px;
+  --radius-2xl: 24px;   /* hero / device card radius */
+  --radius-pill: 999px;
+
+  /* ============== SHADOWS ============== */
+  /* Soft, ambient, medical-device feel. Never harsh. */
+  --shadow-xs: 0 1px 2px rgba(2,64,89,0.06);
+  --shadow-sm: 0 2px 6px rgba(2,64,89,0.07), 0 1px 2px rgba(2,64,89,0.04);
+  --shadow-md: 0 8px 24px rgba(2,64,89,0.09), 0 2px 6px rgba(2,64,89,0.04);
+  --shadow-lg: 0 20px 48px rgba(2,64,89,0.14), 0 4px 12px rgba(2,64,89,0.06);
+  --shadow-float: 0 24px 64px rgba(2,64,89,0.18);
+  --shadow-focus: 0 0 0 3px rgba(115,202,196,0.45);
+
+  /* ============== MOTION ============== */
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-enter:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit:     cubic-bezier(0.4, 0, 1, 1);
+  --dur-fast: 120ms;
+  --dur-med:  200ms;
+  --dur-slow: 320ms;
+}
+
+/* ============== SEMANTIC TYPE HELPERS ============== */
+html, body { color: var(--fg-1); font-family: var(--font-sans); }
+body {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  background: var(--bg-1);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.display  { font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: var(--lt-display); font-weight: var(--fw-bold); color: var(--fg-brand); }
+h1, .h1   { font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--lt-h1); font-weight: var(--fw-bold); color: var(--fg-brand); margin: 0 0 var(--space-4); }
+h2, .h2   { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--lt-h2); font-weight: var(--fw-bold); color: var(--fg-brand); margin: 0 0 var(--space-3); }
+h3, .h3   { font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--lt-h3); font-weight: var(--fw-medium); color: var(--fg-brand); margin: 0 0 var(--space-2); }
+h4, .h4   { font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: var(--fw-medium); color: var(--fg-brand); margin: 0 0 var(--space-2); }
+p, .p     { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); margin: 0 0 var(--space-3); }
+.lead     { font-size: var(--fs-body-lg); line-height: var(--lh-body-lg); color: var(--fg-2); }
+small, .small { font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); color: var(--fg-3); }
+.caption  { font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--fg-3); }
+.eyebrow  {
+  font-size: var(--fs-eyebrow); letter-spacing: var(--lt-eyebrow);
+  text-transform: uppercase; font-weight: var(--fw-medium); color: var(--fg-accent);
+}
+code, pre { font-family: var(--font-mono); font-size: 0.92em; }
+
+/* Brand-specific decoration utility — turquoise underline accent used in marketing copy */
+.accent-underline {
+  background-image: linear-gradient(transparent 70%, var(--elea-turquoise-300) 70%);
+  background-repeat: no-repeat;
+  padding: 0 2px;
+}
+</style>
+<style>/* Deck-specific styles; imports tokens from assets/colors_and_type.css */
+
+html, body { margin:0; padding:0; background:#FFFFFF; font-family: var(--font-sans); }
+deck-stage { background:#FFFFFF; --deck-letterbox:#FFFFFF; }
+
+/* === Slide base === */
+section {
+  font-family: var(--font-sans);
+  color: var(--elea-deepblue);
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+}
+
+/* === Backgrounds === */
+.bg-white  { background:#fff; }
+.bg-canvas { background: var(--elea-canvas); }
+.bg-soft   { background: var(--elea-deepblue-50); }
+.bg-navy   { background: var(--elea-deepblue); color:#fff; }
+.bg-navy-dark { background: var(--elea-deepblue-dark); color:#fff; }
+.bg-dots {
+  background: #fff;
+  background-image: radial-gradient(var(--elea-deepblue-300) 1.4px, transparent 1.4px);
+  background-size: 24px 24px;
+}
+.bg-dots-soft {
+  background: var(--elea-canvas);
+  background-image: radial-gradient(var(--elea-deepblue-300) 1.3px, transparent 1.3px);
+  background-size: 24px 24px;
+}
+.bg-navy-dots {
+  background: var(--elea-deepblue);
+  color:#fff;
+  background-image: radial-gradient(rgba(115,202,196,.10) 1.4px, transparent 1.4px);
+  background-size: 26px 26px;
+}
+
+/* === Typography ladder (slide-sized) === */
+.eyebrow {
+  font-size: 22px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--elea-turquoise-900);
+  font-weight: 600;
+}
+.eyebrow.on-dark { color: var(--elea-turquoise); }
+
+h1.hero {
+  font-weight: 700;
+  letter-spacing: -.022em;
+  margin: 0;
+  color: var(--elea-deepblue);
+  line-height: 1.02;
+  font-size: 112px;
+}
+h1.hero.on-dark { color: #fff; }
+
+h2.sec {
+  font-weight: 700;
+  letter-spacing: -.018em;
+  margin: 0;
+  color: var(--elea-deepblue);
+  line-height: 1.06;
+  font-size: 72px;
+}
+h2.sec.on-dark { color: #fff; }
+
+h3.sub {
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin: 0;
+  color: var(--elea-deepblue);
+  line-height: 1.15;
+  font-size: 40px;
+}
+
+p.lead {
+  font-size: 28px;
+  line-height: 1.42;
+  color: var(--elea-ink-2);
+  margin: 0;
+  max-width: 1100px;
+}
+p.lead.on-dark { color: rgba(255,255,255,.78); }
+p.body {
+  font-size: 24px;
+  line-height: 1.48;
+  color: var(--elea-ink-2);
+  margin: 0;
+}
+p.body.on-dark { color: rgba(255,255,255,.75); }
+
+.accent-tq { color: var(--elea-turquoise-900); }
+.accent-tq.on-dark { color: var(--elea-turquoise); }
+
+/* === Cards === */
+.card {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 20px 56px rgba(2,64,89,.08), 0 2px 6px rgba(2,64,89,.04);
+  border: 1px solid #ECEFF1;
+}
+.card.elev { box-shadow: 0 36px 88px rgba(2,64,89,.12), 0 4px 14px rgba(2,64,89,.05); }
+.card.accent { border: 1.5px solid var(--elea-turquoise); }
+.card.navy {
+  background: linear-gradient(160deg, var(--elea-deepblue) 0%, #003A52 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 28px 72px rgba(2,64,89,.28);
+}
+.card.soft {
+  background: var(--elea-deepblue-50);
+  border: 1px solid var(--elea-deepblue-100);
+  box-shadow: none;
+}
+
+/* === Chips / pills === */
+.chip {
+  display:inline-flex;
+  align-items:center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.chip.turquoise {
+  background: var(--elea-turquoise-200);
+  color: var(--elea-turquoise-900);
+}
+.chip.turquoise-solid {
+  background: var(--elea-turquoise);
+  color: #002F42;
+  font-weight: 600;
+}
+.chip.navy {
+  background: var(--elea-deepblue-100);
+  color: var(--elea-deepblue);
+}
+.chip.on-dark {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #fff;
+}
+.chip.ai {
+  background: var(--elea-turquoise);
+  color: #002F42;
+  font-weight: 600;
+}
+
+/* === Icon bubbles === */
+.ibub {
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  background: var(--elea-deepblue-100);
+  color: var(--elea-deepblue);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.ibub.turq { background: var(--elea-turquoise-200); }
+.ibub.solid { background: var(--elea-deepblue); color: #fff; }
+.ibub.turq-solid { background: var(--elea-turquoise); color: #fff; }
+.ibub img { width: 32px; height: 32px; display: block; }
+.ibub.solid img, .ibub.turq-solid img { filter: brightness(0) invert(1); }
+
+/* === Chrome: page num + mini-logo === */
+.mini-logo {
+  position: absolute;
+  bottom: 44px;
+  left: 80px;
+  height: 30px;
+  opacity: .9;
+}
+.mini-logo.on-dark { filter: brightness(0) invert(1); opacity: .9; }
+
+.page-num {
+  position: absolute;
+  bottom: 44px;
+  right: 80px;
+  font-size: 17px;
+  color: var(--elea-ink-4);
+  font-weight: 500;
+  letter-spacing: .12em;
+  font-variant-numeric: tabular-nums;
+}
+.page-num.on-dark { color: rgba(255,255,255,.5); }
+
+/* === Big number === */
+.big-num {
+  font-weight: 700;
+  letter-spacing: -.035em;
+  color: var(--elea-deepblue);
+  line-height: .9;
+  font-variant-numeric: tabular-nums;
+}
+.big-num.on-dark { color: #fff; }
+.big-num.tq { color: var(--elea-turquoise-900); }
+
+/* === Tick divider === */
+.tick {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: middle;
+  margin: 0 10px;
+  opacity: .4;
+}
+
+/* === Brushstroke === */
+.brush { position: absolute; pointer-events: none; display: block; }
+
+/* === Utility === */
+.col { display: flex; flex-direction: column; }
+.row { display: flex; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+
+/* === AI sparkle glyph (pseudo) === */
+.ai-dot::before {
+  content: "✦";
+  color: var(--elea-turquoise);
+  margin-right: 8px;
+}
+
+/* === Step circles === */
+.step-num {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: var(--elea-deepblue);
+  color: #fff;
+  font-weight: 700;
+  font-size: 22px;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.step-num.tq {
+  background: var(--elea-turquoise);
+  color: #002F42;
+}
+
+/* === List check row === */
+.check-row {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 22px; color: var(--elea-ink-2);
+}
+.check-row .dot {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--elea-turquoise-200);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.check-row .dot img { width: 16px; height: 16px; }
+
+/* === On-dark check row === */
+.check-row.on-dark { color: rgba(255,255,255,.82); }
+.check-row.on-dark .dot { background: rgba(115,202,196,.2); }
+.check-row.on-dark .dot img { filter: brightness(0) invert(1); }
+
+/* === Mock UI chrome (product screenshots) === */
+.mock-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--elea-line);
+  display: flex; align-items: center; gap: 14px;
+  font-size: 16px; color: var(--elea-ink-3);
+}
+.traffic { display:flex; gap:8px; }
+.traffic span { width: 12px; height: 12px; border-radius: 50%; }
+.traffic span:nth-child(1){ background:#FF5F57; }
+.traffic span:nth-child(2){ background:#FDBC2C; }
+.traffic span:nth-child(3){ background:#28C840; }
+
+/* === Animated live dot === */
+@keyframes pulse-dot {
+  0%,100%{ opacity:1; transform: scale(1); }
+  50%{ opacity:.35; transform: scale(1.3); }
+}
+.live-dot {
+  width: 10px; height: 10px; border-radius:50%;
+  background: #E05656;
+  animation: pulse-dot 1.3s ease-in-out infinite;
+}
+</style>
+<script src="https://yuna-collab.github.io/readdeck-ENG/deck-stage-en.js"></script>
+
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+<!-- ───────────── 01 · WHY 1 — TITLE / HOOK ───────────── -->
+<section data-label="01 Why 1" class="bg-navy">
+  <div style="position:absolute;inset:0;background:radial-gradient(1600px 900px at 82% 30%, rgba(8,177,239,.26), transparent 62%)"></div>
+  <img src="https://yuna-collab.github.io/readdeck-ENG/brush-1.svg" class="brush" style="left:0;top:520px;width:1920px;height:420px;opacity:.4;mix-blend-mode:screen">
+
+  <div style="position:absolute;left:120px;right:120px;top:100px;display:flex;align-items:center;justify-content:space-between">
+    <span></span>
+    <div style="font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:500">Why elea <span class="tick"></span> 2026</div>
+  </div>
+
+  <div style="position:absolute;left:120px;right:120px;top:200px">
+    <div style="display:inline-flex;align-items:center;gap:14px;padding:12px 22px;background:rgba(62,191,179,.14);border:1px solid rgba(62,191,179,.45);border-radius:999px;margin-bottom:44px">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--elea-turquoise);box-shadow:0 0 12px var(--elea-turquoise)"></span>
+      <span style="font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">Why we built elea</span>
+    </div>
+    <h1 class="hero on-dark" style="max-width:1700px;font-size:100px;line-height:1.02">You deserve a new<br>Pathology Operating System<br>that <span style="color:var(--elea-turquoise)">supports you</span> in your work.</h1>
+    <p style="margin-top:36px;font-size:26px;color:rgba(255,255,255,.78);max-width:1300px;line-height:1.4">Caseloads keep climbing. The pathologist pipeline keeps shrinking. And every legacy LIS vendor is still patching software that was never designed for AI, voice or modern integrations.</p>
+    <p style="margin-top:14px;font-size:26px;color:#fff;max-width:1300px;line-height:1.4;font-weight:600">So we started from a green field.</p>
+  </div>
+
+  <div style="position:absolute;left:120px;right:120px;bottom:70px;display:flex;align-items:flex-end;justify-content:flex-start;gap:40px;z-index:3">
+    <div style="display:flex;gap:56px;align-items:center;padding:22px 36px;background:rgba(2,46,57,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(62,191,179,.22);border-radius:18px">
+      <div><div style="font-size:46px;font-weight:700;color:var(--elea-turquoise);letter-spacing:-.02em;line-height:1">↑</div><div style="font-size:15px;color:rgba(255,255,255,.78);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-top:6px">Cases / pathologist<br>year over year</div></div>
+      <div style="width:1px;height:60px;background:rgba(255,255,255,.18)"></div>
+      <div><div style="font-size:46px;font-weight:700;color:var(--elea-turquoise);letter-spacing:-.02em;line-height:1">↓</div><div style="font-size:15px;color:rgba(255,255,255,.78);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-top:6px">Active US pathologists<br>per 100k Americans</div></div>
+      <div style="width:1px;height:60px;background:rgba(255,255,255,.18)"></div>
+      <div><div style="font-size:46px;font-weight:700;color:var(--elea-turquoise);letter-spacing:-.02em;line-height:1">0</div><div style="font-size:15px;color:rgba(255,255,255,.78);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-top:6px">Legacy LIS rebuilt<br>from a green field</div></div>
+    </div>
+  </div>
+  <div class="page-num on-dark">01 / 15</div>
+
+  <!-- product device, iso, decorative -->
+  <img src="https://yuna-collab.github.io/readdeck-ENG/slide01-product.png" alt="" style="position:absolute;right:-220px;top:80px;width:1100px;opacity:.42;filter:drop-shadow(0 40px 80px rgba(0,0,0,.45));pointer-events:none;mask-image:linear-gradient(to bottom left, #000 30%, transparent 75%);-webkit-mask-image:linear-gradient(to bottom left, #000 30%, transparent 75%)">
+</section>
+
+
+<!-- ───────────── 02 · WHY 2 — LEGACY FAILURES ───────────── -->
+<section data-label="02 Why 2" class="bg-canvas">
+  <div style="position:absolute;inset:0;padding:110px 120px 130px;display:flex;flex-direction:column">
+    <div class="eyebrow">The legacy LIS, in 2026</div>
+    <h2 class="sec" style="margin-top:22px;max-width:1720px">Built before AI. <span class="accent-tq">Built before everything that matters now.</span></h2>
+    <p class="lead" style="margin-top:24px;max-width:1680px">Today's leading lab information systems were architected in the 1990s. They store data — they don't reason on it. They were never designed for voice, for AI, or for the way a modern pathology practice actually works.</p>
+
+    <div style="margin-top:56px;display:grid;grid-template-columns:repeat(4, 1fr);grid-template-rows:1fr 1fr;gap:22px;flex:1">
+      <div class="card" style="padding:30px 32px">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">01</div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:10px 0 0;letter-spacing:-.01em">Built before AI</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.4">Legacy LIS can store data — they can't reason on it. AI is bolted on, not native.</p>
+      </div>
+      <div class="card" style="padding:30px 32px">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">02</div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:10px 0 0;letter-spacing:-.01em">1990s-style UX</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.4">Hostile forms, dozens of clicks per case. Pathologists fight the software instead of using it.</p>
+      </div>
+      <div class="card" style="padding:30px 32px">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">03</div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:10px 0 0;letter-spacing:-.01em">Disconnected from voice</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.4">Dictation lives in a separate tool. Transcription is a manual review-and-paste job.</p>
+      </div>
+      <div class="card" style="padding:30px 32px">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">04</div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:10px 0 0;letter-spacing:-.01em">No native synoptic / CAP</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.4">CAP-compliant synoptic reporting requires bolt-on tools or manual templates.</p>
+      </div>
+      <div class="card" style="padding:30px 32px">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">05</div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:10px 0 0;letter-spacing:-.01em">Closed integrations</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.4">LIS ↔ EHR ↔ scanners is a custom project every time. HL7/FHIR is half-implemented.</p>
+      </div>
+      <div class="card" style="padding:30px 32px">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">06</div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:10px 0 0;letter-spacing:-.01em">Reporting as afterthought</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.4">Statistics and operational insight are separate licences, separate dashboards, separate vendor.</p>
+      </div>
+      <div class="card" style="padding:30px 32px">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">07</div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:10px 0 0;letter-spacing:-.01em">Years to deploy</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.4">Multi-year rollouts. Six-figure change requests. Locked-in for a decade.</p>
+      </div>
+      <div class="card accent elev" style="padding:30px 32px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,var(--elea-turquoise-900) 0%,var(--elea-turquoise-700) 100%);border:none">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.78);font-weight:700">So we built</div>
+        <div style="font-size:38px;font-weight:700;color:#fff;margin-top:8px;letter-spacing:-.02em;line-height:1">elea — from a green field.</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-num">02 / 15</div>
+</section>
+
+
+<!-- ───────────── 03 · WHO — TEAM ───────────── -->
+<section data-label="03 Team" class="bg-canvas">
+  <div style="position:absolute;inset:0;padding:110px 120px 130px;display:flex;flex-direction:column">
+    <div class="eyebrow">Who's building elea</div>
+    <h2 class="sec" style="margin-top:22px;max-width:1720px">Four founders. <span class="accent-tq">One operating system for pathology.</span></h2>
+    <p class="lead" style="margin-top:24px;max-width:1680px">A practising pathologist, a software founder, a senior engineer and a delivery lead — building elea full-time, side by side.</p>
+
+    <div style="margin-top:56px;display:grid;grid-template-columns:1.35fr 1fr;gap:64px;align-items:stretch;flex:1">
+      <!-- Photo -->
+      <div style="position:relative;border-radius:28px;overflow:hidden;background:#0b1f3a;box-shadow:0 32px 80px rgba(0,41,91,.18)">
+        <img src="https://yuna-collab.github.io/readdeck-ENG/team-founders.jpg" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:28px 32px;background:linear-gradient(0deg, rgba(11,31,58,.92) 0%, rgba(11,31,58,0) 100%);color:#fff">
+          <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">The elea founding team</div>
+          <div style="font-size:22px;font-weight:600;margin-top:6px">Christoph, Sebastian, Stephan &amp; Tobias — left to right</div>
+        </div>
+      </div>
+
+      <!-- Founder cards -->
+      <div style="display:grid;grid-template-rows:1fr 1fr 1fr 1fr;gap:14px">
+        <div class="card" style="padding:18px 24px;display:flex;align-items:center;gap:18px">
+          <div style="width:54px;height:54px;border-radius:14px;background:var(--elea-turquoise-100);display:grid;place-items:center;flex-shrink:0;font-size:20px;font-weight:700;color:var(--elea-turquoise-900)">CS</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+              <div style="font-size:22px;font-weight:700;color:var(--elea-deepblue);letter-spacing:-.01em">Dr. Christoph Schröder</div>
+              <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">CEO</div>
+            </div>
+            <p style="margin-top:4px;font-size:16px;color:var(--elea-ink-2);line-height:1.4">Software business leader; decade-long leadership experience in high-tech research &amp; development.</p>
+          </div>
+        </div>
+        <div class="card" style="padding:18px 24px;display:flex;align-items:center;gap:18px">
+          <div style="width:54px;height:54px;border-radius:14px;background:var(--elea-turquoise-100);display:grid;place-items:center;flex-shrink:0;font-size:20px;font-weight:700;color:var(--elea-turquoise-900)">SC</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+              <div style="font-size:22px;font-weight:700;color:var(--elea-deepblue);letter-spacing:-.01em">Dr. Sebastian Casu</div>
+              <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">CGO</div>
+            </div>
+            <p style="margin-top:4px;font-size:16px;color:var(--elea-ink-2);line-height:1.4">Physician and healthcare executive with decades of leadership experience in clinical medicine, healthcare organizations, and health-tech companies.</p>
+          </div>
+        </div>
+        <div class="card" style="padding:18px 24px;display:flex;align-items:center;gap:18px">
+          <div style="width:54px;height:54px;border-radius:14px;background:var(--elea-turquoise-100);display:grid;place-items:center;flex-shrink:0;font-size:20px;font-weight:700;color:var(--elea-turquoise-900)">ST</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+              <div style="font-size:22px;font-weight:700;color:var(--elea-deepblue);letter-spacing:-.01em">Stephan Frank</div>
+              <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">COO</div>
+            </div>
+            <p style="margin-top:4px;font-size:16px;color:var(--elea-ink-2);line-height:1.4">Accomplished business and product leader with in-depth expertise in data protection and legal regulations.</p>
+          </div>
+        </div>
+        <div class="card" style="padding:18px 24px;display:flex;align-items:center;gap:18px">
+          <div style="width:54px;height:54px;border-radius:14px;background:var(--elea-turquoise-100);display:grid;place-items:center;flex-shrink:0;font-size:20px;font-weight:700;color:var(--elea-turquoise-900)">TO</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+              <div style="font-size:22px;font-weight:700;color:var(--elea-deepblue);letter-spacing:-.01em">Tobias Lygren</div>
+              <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">CTO</div>
+            </div>
+            <p style="margin-top:4px;font-size:16px;color:var(--elea-ink-2);line-height:1.4">Technologist, software and AI industry leader with experience delivering innovative, high-quality products as a startup founder.</p>
+          </div>
+        </div>
+            </div>
+    </div>
+  </div>
+  <div class="page-num">03 / 15</div>
+</section>
+
+
+<!-- ───────────── 04 · HOW 1 — THE ELEA WAY ───────────── -->
+<section data-label="04 How" class="bg-canvas">
+  <div style="position:absolute;inset:0;padding:110px 120px 130px;display:flex;flex-direction:column">
+    <div class="eyebrow">How elea is different</div>
+    <h2 class="sec" style="margin-top:22px;max-width:1720px">An <span class="accent-tq">operating system</span> — not another LIS upgrade.</h2>
+    <p class="lead" style="margin-top:24px;max-width:1680px">Six principles guide every feature we ship. They're the difference between bolting AI onto a 1990s system and rebuilding the workflow from a green field.</p>
+
+    <div class="grid-3" style="gap:24px;margin-top:56px;flex:1">
+      <div class="card" style="padding:32px 34px">
+        <div class="ibub turq"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-ai.svg"></div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:22px 0 0;letter-spacing:-.01em">AI-native, not bolted-on</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.45">Every workflow is built on top of AI from day one. Reasoning, not just storage.</p>
+      </div>
+      <div class="card" style="padding:32px 34px">
+        <div class="ibub"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-system.svg"></div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:22px 0 0;letter-spacing:-.01em">One OS for the sign-out</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.45">Voice, viewer, LIS, synoptic, billing, statistics — one system, one login.</p>
+      </div>
+      <div class="card" style="padding:32px 34px">
+        <div class="ibub turq"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-mic.svg"></div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:22px 0 0;letter-spacing:-.01em">Voice-first authoring</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.45">You talk, elea writes. Pathology reports, codes and synoptic forms structured automatically.</p>
+      </div>
+      <div class="card" style="padding:32px 34px">
+        <div class="ibub"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-connect.svg"></div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:22px 0 0;letter-spacing:-.01em">Open by default</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.45">First-class HL7 / FHIR, native scanner integrations, EHR APIs that just work.</p>
+      </div>
+      <div class="card" style="padding:32px 34px">
+        <div class="ibub turq"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-team.svg"></div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:22px 0 0;letter-spacing:-.01em">Pathologist-designed</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.45">Designed by a practising pathologist alongside engineers — not by a vendor PM in a vacuum.</p>
+      </div>
+      <div class="card accent elev" style="padding:32px 34px">
+        <div class="ibub turq-solid"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-learn.svg"></div>
+        <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:22px 0 0;letter-spacing:-.01em">Continuous learning</h3>
+        <p class="body" style="margin-top:10px;font-size:18px;line-height:1.45">elea adapts to your sign-out style, your synoptic templates, your referrer patterns.</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-num">04 / 15</div>
+</section>
+
+
+<!-- ───────────── 05 · WHAT — INTERACTIVE TOUR ───────────── -->
+<section data-label="05 Tour" class="bg-navy">
+  <style>
+    [data-screen-label*="05"] svg g[onclick] { pointer-events: all; cursor: pointer; }
+    [data-screen-label*="05"] svg g[onclick] .s5n { transition: fill .15s ease, stroke .15s ease; pointer-events: all; }
+    [data-screen-label*="05"] svg g[onclick]:hover .s5n { fill: rgba(62,191,179,.20); stroke: var(--elea-turquoise); }
+    [data-screen-label*="05"] svg g[onclick]:hover text { fill: #fff; }
+  </style>
+  <div style="position:absolute;inset:0;background:radial-gradient(1400px 800px at 78% 30%, rgba(8,177,239,.22), transparent 60%)"></div>
+  <img src="https://yuna-collab.github.io/readdeck-ENG/brush-2.svg" class="brush" style="left:-300px;bottom:-200px;width:1500px;height:900px;opacity:.18;mix-blend-mode:screen">
+
+  <div style="position:absolute;inset:0;padding:100px 120px 120px;display:flex;flex-direction:column">
+    <div class="eyebrow on-dark">End-to-end with elea</div>
+    <h2 class="sec on-dark" style="margin-top:18px;max-width:1720px">From sample to signed report — <span style="color:var(--elea-turquoise)">one continuous flow</span>.</h2>
+    <p class="lead on-dark" style="margin-top:18px;max-width:1620px;font-size:24px">elea connects every step of the pathology workflow, removing the manual handoffs that slow labs down today.</p>
+
+    <!-- ── End-to-end process SVG ── -->
+    <div style="margin-top:50px;flex:1;position:relative">
+      <svg viewBox="0 0 1680 540" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block;overflow:visible">
+        <defs>
+          <linearGradient id="s5pipe" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3EBFB3" stop-opacity=".25"></stop>
+            <stop offset="50%" stop-color="#3EBFB3" stop-opacity=".95"></stop>
+            <stop offset="100%" stop-color="#3EBFB3" stop-opacity=".25"></stop>
+          </linearGradient>
+          <linearGradient id="s5nodefill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(255,255,255,.10)"></stop>
+            <stop offset="100%" stop-color="rgba(255,255,255,.04)"></stop>
+          </linearGradient>
+          <filter id="s5glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="blur"></feGaussianBlur>
+            <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Stage band labels -->
+        <text x="180" y="32" text-anchor="middle" fill="rgba(255,255,255,.42)" style="font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:700">Intake</text>
+        <text x="600" y="32" text-anchor="middle" fill="rgba(255,255,255,.42)" style="font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:700">Diagnostic work</text>
+        <text x="1080" y="32" text-anchor="middle" fill="rgba(255,255,255,.42)" style="font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:700">Report &amp; review</text>
+        <text x="1500" y="32" text-anchor="middle" fill="rgba(255,255,255,.42)" style="font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:700">Sign-out &amp; insight</text>
+
+        <!-- vertical band dividers -->
+        <line x1="380" y1="50" x2="380" y2="500" stroke="rgba(255,255,255,.08)" stroke-dasharray="4 6"></line>
+        <line x1="820" y1="50" x2="820" y2="500" stroke="rgba(255,255,255,.08)" stroke-dasharray="4 6"></line>
+        <line x1="1340" y1="50" x2="1340" y2="500" stroke="rgba(255,255,255,.08)" stroke-dasharray="4 6"></line>
+
+        <!-- main pipe (the spine of the process) -->
+        <path d="M 100 240 L 1620 240" fill="none" stroke="url(#s5pipe)" stroke-width="4" stroke-linecap="round"></path>
+
+        <!-- branch lines from pipe up/down to module nodes -->
+        <line x1="180" y1="240" x2="180" y2="170" stroke="rgba(62,191,179,.45)" stroke-width="2"></line>
+        <line x1="380" y1="240" x2="380" y2="310" stroke="rgba(62,191,179,.45)" stroke-width="2"></line>
+        <line x1="600" y1="240" x2="600" y2="170" stroke="rgba(62,191,179,.45)" stroke-width="2"></line>
+        <line x1="820" y1="240" x2="820" y2="310" stroke="rgba(62,191,179,.45)" stroke-width="2"></line>
+        <line x1="1080" y1="240" x2="1080" y2="170" stroke="rgba(62,191,179,.45)" stroke-width="2"></line>
+        <line x1="1340" y1="240" x2="1340" y2="310" stroke="rgba(62,191,179,.45)" stroke-width="2"></line>
+        <line x1="1500" y1="240" x2="1500" y2="170" stroke="rgba(62,191,179,.45)" stroke-width="2"></line>
+
+        <!-- pipe junction dots -->
+        <circle cx="180" cy="240" r="6" fill="#3EBFB3"></circle>
+        <circle cx="380" cy="240" r="6" fill="#3EBFB3"></circle>
+        <circle cx="600" cy="240" r="6" fill="#3EBFB3"></circle>
+        <circle cx="820" cy="240" r="6" fill="#3EBFB3"></circle>
+        <circle cx="1080" cy="240" r="6" fill="#3EBFB3"></circle>
+        <circle cx="1340" cy="240" r="6" fill="#3EBFB3"></circle>
+        <circle cx="1500" cy="240" r="6" fill="#3EBFB3"></circle>
+
+        <!-- moving sample dot along pipe -->
+        <circle r="7" fill="#fff" filter="url(#s5glow)">
+          <animate attributeName="cx" from="100" to="1620" dur="6s" repeatCount="indefinite"></animate>
+          <animate attributeName="cy" values="240;240" dur="6s" repeatCount="indefinite"></animate>
+        </circle>
+
+        <!-- ─── NODE 1: Customer connectivity (top) ─── -->
+        <g transform="translate(80,90)" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(11)">
+          <rect width="200" height="80" rx="14" fill="url(#s5nodefill)" stroke="rgba(255,255,255,.18)" class="s5n"></rect>
+          <g transform="translate(18,20)">
+            <rect x="0" y="0" width="40" height="40" rx="10" fill="rgba(62,191,179,.18)"></rect>
+            <g transform="translate(8,8)" stroke="#3EBFB3" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 14 L12 4 L22 14"></path><rect x="6" y="14" width="12" height="9"></rect>
+            </g>
+          </g>
+          <text x="72" y="34" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">Customer</text>
+          <text x="72" y="54" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">connectivity</text>
+          <text x="72" y="70" fill="rgba(255,255,255,.55)" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Slide 12</text>
+        </g>
+
+        <!-- ─── NODE 2: Automatic grossing (bottom) ─── -->
+        <g transform="translate(280,310)" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(9)">
+          <rect width="200" height="80" rx="14" fill="url(#s5nodefill)" stroke="rgba(255,255,255,.18)" class="s5n"></rect>
+          <g transform="translate(18,20)">
+            <rect x="0" y="0" width="40" height="40" rx="10" fill="rgba(62,191,179,.18)"></rect>
+            <g transform="translate(8,8)" stroke="#3EBFB3" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="6" width="18" height="14" rx="2"></rect><circle cx="12" cy="13" r="3.5"></circle><path d="M9 6 L9 3 L15 3 L15 6"></path>
+            </g>
+          </g>
+          <text x="72" y="34" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">Automatic</text>
+          <text x="72" y="54" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">grossing</text>
+          <text x="72" y="70" fill="rgba(255,255,255,.55)" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Slide 10</text>
+        </g>
+
+        <!-- ─── NODE 3: Command center (top) ─── -->
+        <g transform="translate(500,90)" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(5)">
+          <rect width="200" height="80" rx="14" fill="url(#s5nodefill)" stroke="rgba(255,255,255,.18)" class="s5n"></rect>
+          <g transform="translate(18,20)">
+            <rect x="0" y="0" width="40" height="40" rx="10" fill="rgba(62,191,179,.18)"></rect>
+            <g transform="translate(8,8)" stroke="#3EBFB3" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12 L6 12 L9 4 L12 20 L15 8 L18 12 L22 12"></path>
+            </g>
+          </g>
+          <text x="72" y="34" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">Lab command</text>
+          <text x="72" y="54" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">center</text>
+          <text x="72" y="70" fill="rgba(255,255,255,.55)" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Slide 06</text>
+        </g>
+
+        <!-- ─── NODE 4: Report generation (bottom) ─── -->
+        <g transform="translate(720,310)" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(6)">
+          <rect width="200" height="80" rx="14" fill="url(#s5nodefill)" stroke="rgba(255,255,255,.18)" class="s5n"></rect>
+          <g transform="translate(18,20)">
+            <rect x="0" y="0" width="40" height="40" rx="10" fill="rgba(62,191,179,.18)"></rect>
+            <g transform="translate(8,8)" stroke="#3EBFB3" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2 L6 2 A2 2 0 0 0 4 4 L4 20 A2 2 0 0 0 6 22 L18 22 A2 2 0 0 0 20 20 L20 8 Z"></path><path d="M14 2 L14 8 L20 8"></path><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="14" y2="17"></line>
+            </g>
+          </g>
+          <text x="72" y="34" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">Report</text>
+          <text x="72" y="54" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">generation</text>
+          <text x="72" y="70" fill="rgba(255,255,255,.55)" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Slide 07</text>
+        </g>
+
+        <!-- ─── NODE 5: Second pair of eyes (top) ─── -->
+        <g transform="translate(980,90)" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(7)">
+          <rect width="200" height="80" rx="14" fill="url(#s5nodefill)" stroke="rgba(255,255,255,.18)" class="s5n"></rect>
+          <g transform="translate(18,20)">
+            <rect x="0" y="0" width="40" height="40" rx="10" fill="rgba(62,191,179,.18)"></rect>
+            <g transform="translate(8,8)" stroke="#3EBFB3" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="8" cy="12" rx="5" ry="3.5"></ellipse><circle cx="8" cy="12" r="1.5" fill="#3EBFB3"></circle><ellipse cx="17" cy="12" rx="5" ry="3.5"></ellipse><circle cx="17" cy="12" r="1.5" fill="#3EBFB3"></circle>
+            </g>
+          </g>
+          <text x="72" y="34" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">Second pair</text>
+          <text x="72" y="54" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">of eyes</text>
+          <text x="72" y="70" fill="rgba(255,255,255,.55)" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Slide 08</text>
+        </g>
+
+        <!-- ─── NODE 6: Synoptic reports (bottom) ─── -->
+        <g transform="translate(1240,310)" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(8)">
+          <rect width="200" height="80" rx="14" fill="url(#s5nodefill)" stroke="rgba(255,255,255,.18)" class="s5n"></rect>
+          <g transform="translate(18,20)">
+            <rect x="0" y="0" width="40" height="40" rx="10" fill="rgba(62,191,179,.18)"></rect>
+            <g transform="translate(8,8)" stroke="#3EBFB3" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="9" x2="9" y2="21"></line>
+            </g>
+          </g>
+          <text x="72" y="34" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">Synoptic</text>
+          <text x="72" y="54" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">reports</text>
+          <text x="72" y="70" fill="rgba(255,255,255,.55)" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Slide 09</text>
+        </g>
+
+        <!-- ─── NODE 7: Worklists & statistics (top) ─── -->
+        <g transform="translate(1400,90)" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(12)">
+          <rect width="200" height="80" rx="14" fill="url(#s5nodefill)" stroke="rgba(255,255,255,.18)" class="s5n"></rect>
+          <g transform="translate(18,20)">
+            <rect x="0" y="0" width="40" height="40" rx="10" fill="rgba(62,191,179,.18)"></rect>
+            <g transform="translate(8,8)" stroke="#3EBFB3" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="20" x2="4" y2="10"></line><line x1="10" y1="20" x2="10" y2="6"></line><line x1="16" y1="20" x2="16" y2="13"></line><line x1="22" y1="20" x2="22" y2="3"></line>
+            </g>
+          </g>
+          <text x="72" y="34" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">Worklists &amp;</text>
+          <text x="72" y="54" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">statistics</text>
+          <text x="72" y="70" fill="rgba(255,255,255,.55)" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Slide 13</text>
+        </g>
+
+        <!-- ─── START / END caps ─── -->
+        <g transform="translate(0,210)">
+          <rect x="2" y="0" width="78" height="60" rx="14" fill="rgba(62,191,179,.16)" stroke="rgba(62,191,179,.45)"></rect>
+          <text x="41" y="26" text-anchor="middle" fill="#3EBFB3" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700">Start</text>
+          <text x="41" y="46" text-anchor="middle" fill="#fff" style="font-size:14px;font-weight:700">Sample in</text>
+        </g>
+        <g transform="translate(1620,210)" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(13)">
+          <rect x="0" y="0" width="78" height="60" rx="14" fill="rgba(62,191,179,.16)" stroke="rgba(62,191,179,.45)" class="s5n"></rect>
+          <text x="39" y="26" text-anchor="middle" fill="#3EBFB3" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700">End</text>
+          <text x="39" y="46" text-anchor="middle" fill="#fff" style="font-size:14px;font-weight:700">Signed</text>
+        </g>
+
+        <!-- ─── Underlying foundation (laboratories) ─── -->
+        <g transform="translate(80,440)" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(10)">
+          <rect width="1538" height="60" rx="14" fill="rgba(62,191,179,.06)" stroke="rgba(62,191,179,.22)" stroke-dasharray="6 6" class="s5n"></rect>
+          <g transform="translate(20,15)">
+            <rect x="0" y="0" width="30" height="30" rx="7" fill="rgba(62,191,179,.22)"></rect>
+            <g transform="translate(7,7)" stroke="#3EBFB3" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 L6 9 L2 16 L14 16 L10 9 L10 2 Z"></path>
+            </g>
+          </g>
+          <text x="62" y="36" fill="#fff" style="font-size:15px;font-weight:700;letter-spacing:-.01em">Laboratories</text>
+          <text x="170" y="36" fill="rgba(255,255,255,.55)" style="font-size:14px">— elea connects to lab instruments and LIS for full traceability across the workflow.</text>
+          <text x="1490" y="36" text-anchor="end" fill="rgba(255,255,255,.55)" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Slide 11</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="page-num on-dark">05 / 15</div>
+</section>
+
+
+<!-- ───────────── 07 · LAB COMMAND CENTER ───────────── -->
+<section data-label="06 Command center" class="bg-navy-dots">
+  <img src="https://yuna-collab.github.io/readdeck-ENG/brush-2.svg" class="brush" style="right:-200px;top:200px;width:1400px;height:800px;opacity:.22;mix-blend-mode:screen">
+  <div style="position:absolute;inset:0;padding:110px 120px 130px;display:grid;grid-template-columns:1.05fr 1fr;gap:70px;align-items:center">
+    <div>
+      <div class="eyebrow on-dark">Laboratory command center</div>
+      <h1 class="hero on-dark" style="margin-top:28px;font-size:96px">You speak.<br><span style="color:var(--elea-turquoise)">elea responds</span>.</h1>
+      <p class="lead on-dark" style="margin-top:36px;max-width:900px;font-size:26px">Thanks to cutting-edge AI, elea analyzes your commands — recognizing patterns, intentions, and context. From diagnostic reporting to lab instructions and billing, elea carries out your tasks with precision and seamless execution, eliminating manual intervention.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <!-- Rebuilt tablet UI: voice recording analysis, themed to deck palette -->
+      <div style="position:relative;border-radius:28px;overflow:hidden;background:#fff;box-shadow:0 30px 60px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.12);aspect-ratio:3/2">
+        <!-- top tab handle -->
+        <div style="position:absolute;left:50%;top:8px;transform:translateX(-50%);width:42px;height:18px;border-radius:10px;background:#f3f6f9;display:flex;align-items:center;justify-content:center">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+        </div>
+
+        <!-- Left rail -->
+        <div style="position:absolute;left:0;top:0;bottom:0;width:62px;background:#f7f9fb;border-right:1px solid #eef1f5;display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:8px">
+          <!-- elea logo dots -->
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="var(--elea-deepblue)"><circle cx="6" cy="6" r="2.4"></circle><circle cx="12" cy="6" r="2.4"></circle><circle cx="18" cy="6" r="2.4"></circle><circle cx="6" cy="12" r="2.4"></circle><circle cx="12" cy="12" r="2.4"></circle><circle cx="18" cy="12" r="2.4"></circle><circle cx="6" cy="18" r="2.4"></circle><circle cx="12" cy="18" r="2.4"></circle></svg>
+          <div style="height:14px"></div>
+          <!-- nav icons (turquoise = active accent for elea) -->
+          <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center;background:rgba(62,191,179,.14)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--elea-turquoise)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-9 4 18 3-9h4"></path></svg></div>
+          <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M4 9h16"></path></svg></div>
+          <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18"></path></svg></div>
+          <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="18" x2="14" y2="18"></line></svg></div>
+          <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></div>
+          <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l-1 4H10z"></path><rect x="6" y="8" width="12" height="12" rx="2"></rect></svg></div>
+          <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="14 3 14 9 20 9"></polyline></svg></div>
+          <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px;padding-bottom:8px">
+            <div style="width:34px;height:34px;border-radius:50%;background:#eef1f5;display:grid;place-items:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path></svg></div>
+            <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"></path></svg></div>
+            <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"></path><path d="M9 8V5a3 3 0 0 1 6 0v3"></path></svg></div>
+            <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div>
+            <div style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa5b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 12h18M12 3v18"></path></svg></div>
+          </div>
+        </div>
+
+        <!-- Top-right toolbar -->
+        <div style="position:absolute;right:18px;top:18px;display:flex;align-items:center;gap:14px;color:#9aa5b3">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14M5 12h14M5 17h14"></path></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9z"></path><path d="M10 21a2 2 0 0 0 4 0"></path></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--elea-turquoise)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10a6 6 0 0 0-12 0c-2 0-3 2-3 4s1 4 3 4h12c2 0 3-2 3-4s-1-4-3-4z"></path></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+        </div>
+
+        <!-- Faint case form behind, deepblue tinted -->
+        <div style="position:absolute;left:62px;right:0;top:0;bottom:0;padding:54px 36px 0 30px;color:rgba(0,41,91,.18);font-size:11px;pointer-events:none;filter:blur(3px);opacity:.55">
+          <div style="display:flex;justify-content:center;flex-direction:column;align-items:center;margin-bottom:14px">
+            <div style="font-weight:700;letter-spacing:.04em">Patient name</div>
+            <div style="margin-top:2px">XY · 0123 4567 89</div>
+            <div style="margin-top:6px;padding:3px 12px;border-radius:999px;background:rgba(62,191,179,.18);font-weight:700;color:rgba(62,191,179,.55)">In progress · 01:24</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg> Case number: <span style="font-weight:500">12345678910</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-top:18px">
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:30px;height:30px;border-radius:50%;background:rgba(0,41,91,.08)"></div><div><div style="font-weight:700">Patient name</div></div></div>
+            <div><div style="font-weight:700">Priority ⌄</div></div>
+            <div style="display:flex;align-items:center;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path></svg><div style="font-weight:700">Dr. XY</div></div>
+            <div><div style="font-weight:700">Priority ⌄</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-top:14px">
+            <div><div>Insurance ID</div><div style="font-weight:700">12345</div></div>
+            <div><div>Insurance no.</div><div style="font-weight:700">Lorem</div></div>
+            <div></div><div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-top:14px">
+            <div><div>Date of birth</div><div style="font-weight:700">23.09.1987</div></div>
+            <div></div>
+            <div><div>Insurance no.</div><div style="font-weight:700">Lorem ipsum</div></div>
+            <div></div>
+          </div>
+        </div>
+
+        <!-- Center modal: Extracting data + waves -->
+        <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);text-align:center;z-index:2">
+          <div style="font-size:22px;font-weight:700;color:var(--elea-deepblue);letter-spacing:-.01em;line-height:1.25">Extracting data from<br>voice recording…</div>
+        </div>
+
+        <!-- Wave layer (turquoise palette) -->
+        <svg viewBox="0 0 800 260" preserveAspectRatio="none" style="position:absolute;left:0;right:0;bottom:0;width:100%;height:55%;z-index:1;opacity:.32">
+          <defs>
+            <linearGradient id="wbase" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#28a39a"></stop>
+              <stop offset="100%" stop-color="#3EBFB3"></stop>
+            </linearGradient>
+            <linearGradient id="wmid" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#3EBFB3" stop-opacity=".75"></stop>
+              <stop offset="100%" stop-color="#7fd8cf" stop-opacity=".75"></stop>
+            </linearGradient>
+            <linearGradient id="wtop" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#bfeae5" stop-opacity=".55"></stop>
+              <stop offset="100%" stop-color="#dff5f1" stop-opacity=".55"></stop>
+            </linearGradient>
+          </defs>
+          <!-- back -->
+          <path d="M0,80 C150,30 290,150 430,90 C580,25 700,140 800,90 L800,260 L0,260 Z" fill="url(#wbase)"></path>
+          <!-- mid -->
+          <path d="M0,140 C140,80 300,210 460,140 C600,80 720,180 800,150 L800,260 L0,260 Z" fill="url(#wmid)"></path>
+          <!-- foam -->
+          <path d="M0,180 C140,140 280,230 460,180 C620,140 720,220 800,200 L800,260 L0,260 Z" fill="url(#wtop)"></path>
+        </svg>
+
+        <!-- Pause button -->
+        <div style="position:absolute;left:50%;bottom:36px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="width:64px;height:64px;border-radius:50%;background:#fff;box-shadow:0 12px 30px rgba(0,41,91,.25);display:grid;place-items:center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--elea-deepblue)"><rect x="6" y="5" width="4" height="14" rx="1.2"></rect><rect x="14" y="5" width="4" height="14" rx="1.2"></rect></svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#fff;letter-spacing:.06em;text-shadow:0 1px 6px rgba(0,41,91,.4)">00:12</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+        <div style="padding:18px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;text-align:center">
+          <div class="step-num tq" style="margin:0 auto">01</div>
+          <div style="font-size:18px;font-weight:700;color:#fff;margin-top:10px">You speak</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.62);margin-top:2px;line-height:1.3">Dictate findings, orders, codes</div>
+        </div>
+        <div style="padding:18px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;text-align:center">
+          <div class="step-num tq" style="margin:0 auto">02</div>
+          <div style="font-size:18px;font-weight:700;color:#fff;margin-top:10px">elea analyzes</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.62);margin-top:2px;line-height:1.3">Patterns, intent, context</div>
+        </div>
+        <div style="padding:18px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;text-align:center">
+          <div class="step-num tq" style="margin:0 auto">03</div>
+          <div style="font-size:18px;font-weight:700;color:#fff;margin-top:10px">elea responds</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.62);margin-top:2px;line-height:1.3">Workflow, end to end</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img title="Back to overview" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(4)" src="https://yuna-collab.github.io/readdeck-ENG/elea-logo-white-en.svg" class="mini-logo on-dark">
+  <div class="page-num on-dark">06 / 15</div>
+</section>
+
+
+<!-- ───────────── 09 · REPORT GENERATION ───────────── -->
+<section data-label="07 Report generation" class="bg-dots-soft">
+  <div style="position:absolute;inset:0;padding:110px 120px 130px">
+    <div class="eyebrow">Report generation in record time</div>
+    <h2 class="sec" style="margin-top:22px;max-width:1620px">Correct and approve <span class="accent-tq">finding reports</span> in seconds.</h2>
+
+    <div style="margin-top:44px;display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch">
+      <div class="card" style="padding:32px">
+        <div class="step-num">01</div>
+        <h3 style="font-size:26px;font-weight:700;color:var(--elea-deepblue);margin:22px 0 0;letter-spacing:-.01em">Fully prepared</h3>
+        <p class="body" style="margin-top:12px;font-size:18px">PATHOLOGY REPORTS are fully prepared by elea and presented directly for review.</p>
+      </div>
+      <div style="display:grid;place-items:center;padding:0 12px"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-arrow.svg" style="width:32px;height:32px;opacity:.45"></div>
+      <div class="card accent elev" style="padding:32px">
+        <div class="step-num tq">02</div>
+        <h3 style="font-size:26px;font-weight:700;color:var(--elea-deepblue);margin:22px 0 0;letter-spacing:-.01em">Quickly reviewed</h3>
+        <p class="body" style="margin-top:12px;font-size:18px">80% of drafted reports are approved in under 30 seconds.</p>
+        <div class="big-num tq" style="font-size:60px;margin-top:18px">80%</div>
+      </div>
+      <div style="display:grid;place-items:center;padding:0 12px"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-arrow.svg" style="width:32px;height:32px;opacity:.45"></div>
+      <div class="card" style="padding:32px">
+        <div class="step-num">03</div>
+        <h3 style="font-size:26px;font-weight:700;color:var(--elea-deepblue);margin:22px 0 0;letter-spacing:-.01em">Sent immediately</h3>
+        <p class="body" style="margin-top:12px;font-size:18px">Referring physicians receive approved results immediately across all digital channels — and can provide optimal care.</p>
+      </div>
+    </div>
+
+      <!-- Turnaround timeline graphic -->
+      <div style="margin-top:40px;background:#fff;border:1px solid var(--elea-line);border-radius:24px;box-shadow:0 28px 60px rgba(0,41,91,.10);padding:38px 44px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--elea-turquoise);box-shadow:0 0 0 6px rgba(62,191,179,.18)"></div>
+            <div style="font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--elea-deepblue);font-weight:700">Time to approve a report</div>
+          </div>
+          <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#7f8a99;font-weight:600">Distribution of 80% reviewed in &lt; 30s</div>
+        </div>
+
+        <!-- timeline track -->
+        <div style="position:relative;height:120px;margin-top:8px">
+          <!-- baseline -->
+          <div style="position:absolute;left:0;right:0;top:78px;height:2px;background:linear-gradient(90deg, var(--elea-turquoise) 0%, var(--elea-turquoise) 80%, var(--elea-line) 80%, var(--elea-line) 100%);border-radius:2px"></div>
+
+          <!-- ticks + labels -->
+          <div style="position:absolute;left:0;right:0;top:62px;height:34px">
+            <div style="position:absolute;left:0%;display:flex;flex-direction:column;align-items:flex-start;gap:8px"><div style="width:2px;height:14px;background:var(--elea-turquoise)"></div><div style="font-size:13px;color:var(--elea-deepblue);font-weight:700">0s</div></div>
+            <div style="position:absolute;left:20%;display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:2px;height:10px;background:rgba(0,73,90,.35)"></div><div style="font-size:12px;color:#7f8a99">10s</div></div>
+            <div style="position:absolute;left:40%;display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:2px;height:10px;background:rgba(0,73,90,.35)"></div><div style="font-size:12px;color:#7f8a99">20s</div></div>
+            <div style="position:absolute;left:80%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:3px;height:18px;background:var(--elea-turquoise)"></div><div style="font-size:14px;color:var(--elea-turquoise);font-weight:800;letter-spacing:.04em">30s · 80%</div></div>
+            <div style="position:absolute;right:0;display:flex;flex-direction:column;align-items:flex-end;gap:8px"><div style="width:2px;height:10px;background:rgba(0,73,90,.35)"></div><div style="font-size:12px;color:#7f8a99">60s+ · legacy avg.</div></div>
+          </div>
+
+          <!-- dictation flow chips above the line -->
+          <div style="position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:10px">
+            <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(62,191,179,.12);border:1px solid rgba(62,191,179,.42);color:var(--elea-deepblue);font-size:13px;font-weight:700">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0"></path><path d="M12 18v4"></path></svg>
+              Dictate
+            </div>
+            <div style="flex:1;height:1px;background:repeating-linear-gradient(90deg, rgba(62,191,179,.5) 0 6px, transparent 6px 12px)"></div>
+            <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(62,191,179,.12);border:1px solid rgba(62,191,179,.42);color:var(--elea-deepblue);font-size:13px;font-weight:700">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c2-3 5-5 9-5s7 2 9 5"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              elea drafts
+            </div>
+            <div style="flex:1;height:1px;background:repeating-linear-gradient(90deg, rgba(62,191,179,.5) 0 6px, transparent 6px 12px)"></div>
+            <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--elea-turquoise);color:#fff;font-size:13px;font-weight:700;box-shadow:0 8px 22px rgba(62,191,179,.35)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg>
+              Approve &amp; send
+            </div>
+          </div>
+        </div>
+
+        <!-- bottom KPI strip -->
+        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:0;margin-top:30px;padding-top:24px;border-top:1px solid var(--elea-line)">
+          <div style="padding:0 28px 0 0;border-right:1px solid var(--elea-line)">
+            <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7f8a99;font-weight:700">Median time to approve</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><div style="font-size:42px;font-weight:800;color:var(--elea-deepblue);letter-spacing:-.02em">22<span style="font-size:22px;color:#7f8a99;font-weight:700">s</span></div><div style="font-size:13px;color:var(--elea-turquoise);font-weight:700">↓ from minutes</div></div>
+          </div>
+          <div style="padding:0 28px;border-right:1px solid var(--elea-line)">
+            <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7f8a99;font-weight:700">Reports approved &lt; 30s</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><div style="font-size:42px;font-weight:800;color:var(--elea-deepblue);letter-spacing:-.02em">80<span style="font-size:22px;color:#7f8a99;font-weight:700">%</span></div><div style="font-size:13px;color:var(--elea-turquoise);font-weight:700">↑ throughput</div></div>
+          </div>
+          <div style="padding:0 0 0 28px">
+            <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7f8a99;font-weight:700">Manual edits per case</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><div style="font-size:42px;font-weight:800;color:var(--elea-deepblue);letter-spacing:-.02em">~0</div><div style="font-size:13px;color:var(--elea-turquoise);font-weight:700">AI-prepared</div></div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <img title="Back to overview" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(4)" src="https://yuna-collab.github.io/readdeck-ENG/elea-logo-en.svg" class="mini-logo">
+  <div class="page-num">07 / 15</div>
+</section>
+
+
+<!-- ───────────── 10 · SECOND PAIR OF EYES ───────────── -->
+<section data-label="08 Second pair of eyes" class="bg-white">
+  <div style="position:absolute;inset:0;padding:100px 120px 120px;display:flex;flex-direction:column">
+    <div class="eyebrow">A second pair of eyes</div>
+    <h2 class="sec" style="margin-top:18px;max-width:1620px">You are in command. <span class="accent-tq">elea follows</span>.</h2>
+    <p class="lead" style="margin-top:18px;max-width:1400px;font-size:22px">As the expert, you decide what gets adjusted or corrected. Sometimes a second pair of eyes is helpful — that's exactly what elea provides.</p>
+
+    <!-- ── Hero graphic: convergence flow ── -->
+    <div style="margin-top:38px;position:relative;height:300px;background:linear-gradient(180deg,#F4FBFB 0%,#FFFFFF 100%);border:1px solid var(--elea-line);border-radius:24px;padding:32px 48px">
+      <svg viewBox="0 0 1640 240" preserveAspectRatio="none" style="position:absolute;inset:32px 48px;width:calc(100% - 96px);height:calc(100% - 64px);overflow:visible">
+        <defs>
+          <linearGradient id="s8flow1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#00295B" stop-opacity=".35"></stop>
+            <stop offset="100%" stop-color="#3EBFB3" stop-opacity=".95"></stop>
+          </linearGradient>
+          <linearGradient id="s8flow2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3EBFB3" stop-opacity=".35"></stop>
+            <stop offset="100%" stop-color="#3EBFB3" stop-opacity=".95"></stop>
+          </linearGradient>
+          <linearGradient id="s8flow3" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3EBFB3" stop-opacity=".95"></stop>
+            <stop offset="100%" stop-color="#F5A623" stop-opacity=".95"></stop>
+          </linearGradient>
+        </defs>
+        <!-- top stream: your dictation → review -->
+        <path d="M 240 60 C 480 60, 600 110, 820 120" fill="none" stroke="url(#s8flow1)" stroke-width="3" stroke-linecap="round"></path>
+        <!-- bottom stream: elea's knowledge → review -->
+        <path d="M 240 180 C 480 180, 600 130, 820 120" fill="none" stroke="url(#s8flow2)" stroke-width="3" stroke-linecap="round"></path>
+        <!-- output stream: review → result (starts at the right edge of the eyes circle, ends at flag chip) -->
+        <path id="s8outpath" d="M 896 120 L 1640 120" fill="none" stroke="url(#s8flow3)" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 6"></path>
+        <!-- center merge node -->
+        <circle cx="850" cy="120" r="46" fill="#fff" stroke="var(--elea-turquoise)" stroke-width="2"></circle>
+        <circle cx="850" cy="120" r="34" fill="rgba(62,191,179,.08)"></circle>
+        <!-- two-eyes glyph inside merge -->
+        <g transform="translate(850,120)">
+          <ellipse cx="-11" cy="0" rx="8" ry="5.5" fill="none" stroke="var(--elea-deepblue)" stroke-width="1.6"></ellipse>
+          <circle cx="-11" cy="0" r="2.4" fill="var(--elea-turquoise)"></circle>
+          <ellipse cx="11" cy="0" rx="8" ry="5.5" fill="none" stroke="var(--elea-deepblue)" stroke-width="1.6"></ellipse>
+          <circle cx="11" cy="0" r="2.4" fill="var(--elea-turquoise)"></circle>
+        </g>
+        <!-- moving "data packet" dots -->
+        <circle r="5" fill="var(--elea-deepblue)"><animateMotion dur="3.6s" repeatCount="indefinite" path="M 240 60 C 480 60, 600 110, 820 120"></animateMotion></circle>
+        <circle r="5" fill="var(--elea-turquoise)"><animateMotion dur="3.6s" begin="1.2s" repeatCount="indefinite" path="M 240 180 C 480 180, 600 130, 820 120"></animateMotion></circle>
+        <!-- alternating output dots — each dot ARRIVES at the flag chip; card stays in its color until next dot arrives -->
+        <!-- 6s cycle. Green dot travels 0–2.4s, arrives at 2.4s. Amber dot travels 3–5.4s, arrives at 5.4s. -->
+        <circle r="5" fill="#22A06B">
+          <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.4;0.4001;1" dur="6s" repeatCount="indefinite"></animate>
+          <animateMotion dur="6s" repeatCount="indefinite" keyTimes="0;0.4;1" keyPoints="0;1;1" calcMode="linear" path="M 896 120 L 1640 120"></animateMotion>
+        </circle>
+        <circle r="5" fill="#F5A623">
+          <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.5;0.5001;0.9;1" dur="6s" repeatCount="indefinite"></animate>
+          <animateMotion dur="6s" begin="3s" repeatCount="indefinite" keyTimes="0;0.4;1" keyPoints="0;1;1" calcMode="linear" path="M 896 120 L 1640 120"></animateMotion>
+        </circle>
+      </svg>
+
+      <!-- LEFT input · YOUR DICTATION -->
+      <div style="position:absolute;left:48px;top:52px;width:230px">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-ink-3);font-weight:700">You · the expert</div>
+        <div style="margin-top:8px;padding:14px 16px;background:#fff;border:1px solid var(--elea-line);border-radius:12px;box-shadow:0 8px 22px rgba(0,41,91,.06);display:flex;align-items:center;gap:10px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--elea-deepblue)" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path><path d="M19 11a7 7 0 0 1-14 0"></path><path d="M12 18v3"></path></svg>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:var(--elea-deepblue);line-height:1.1">Your dictation</div>
+            <div style="font-size:12px;color:var(--elea-ink-3);margin-top:2px">Voice · text · edits</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEFT input · ELEA's KNOWLEDGE -->
+      <div style="position:absolute;left:48px;bottom:52px;width:230px">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise-700);font-weight:700">elea · the assistant</div>
+        <div style="margin-top:8px;padding:14px 16px;background:#fff;border:1px solid var(--elea-line);border-radius:12px;box-shadow:0 8px 22px rgba(0,41,91,.06);display:flex;align-items:center;gap:10px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--elea-turquoise-700)" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 9h18"></path><path d="M8 13h2"></path><path d="M8 16h6"></path></svg>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:var(--elea-deepblue);line-height:1.1">Patient + literature</div>
+            <div style="font-size:12px;color:var(--elea-ink-3);margin-top:2px">History · prior reports · refs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER label -->
+      <div style="position:absolute;left:50%;top:14px;transform:translateX(-50%);text-align:center">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise-700);font-weight:700">Cross-check</div>
+      </div>
+
+      <!-- RIGHT output · cards swap exactly when each dot reaches the flag -->
+      <!--
+        Timing (6s cycle, dot travel = 2.4s):
+        0.0s  green dot spawns, amber card shown
+        2.4s  green dot arrives → swap to GREEN card
+        3.0s  amber dot spawns
+        5.4s  amber dot arrives → swap to AMBER card
+        6.0s  green dot spawns again, loop repeats
+        Hold ratios: green visible 5.4-2.4 = 3.0s; amber visible 6+2.4-5.4 = 3.0s. Symmetric.
+      -->
+      <style>
+        /* 6s cycle. Card stays in its color UNTIL the next dot arrives. */
+        /* Green arrives at 2.4s (40% of 6s), amber at 5.4s (90%). */
+        @keyframes s8green { 0%, 39.9% { opacity:0 } 40%, 89.9% { opacity:1 } 90%, 100% { opacity:0 } }
+        @keyframes s8amber { 0%, 39.9% { opacity:1 } 40%, 89.9% { opacity:0 } 90%, 100% { opacity:1 } }
+        .s8card { position:absolute;right:48px;top:50%;width:220px;text-align:right;transform:translateY(-50%) }
+        .s8card.green { animation: s8green 6s steps(1, end) infinite }
+        .s8card.amber { animation: s8amber 6s steps(1, end) infinite }
+      </style>
+
+      <!-- CONSISTENT card (green) -->
+      <div class="s8card green">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0F7A4A;font-weight:700">Output</div>
+        <div style="margin-top:8px;padding:14px 16px;background:#EFF9F1;border:1px solid #B8E0C2;border-radius:12px;box-shadow:0 8px 22px rgba(34,160,107,.14);display:flex;align-items:center;gap:10px;justify-content:flex-end">
+          <div style="text-align:right">
+            <div style="font-size:15px;font-weight:700;color:#0F7A4A;line-height:1.1">Consistent</div>
+            <div style="font-size:12px;color:#1B8A56;margin-top:2px">No conflicts found · ready to sign</div>
+          </div>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22A06B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 12.5l2.5 2.5L16 9.5"></path></svg>
+        </div>
+      </div>
+
+      <!-- INCONSISTENCY card (amber) -->
+      <div class="s8card amber">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#B8860B;font-weight:700">Output</div>
+        <div style="margin-top:8px;padding:14px 16px;background:#FFF8EA;border:1px solid #F0D78A;border-radius:12px;box-shadow:0 8px 22px rgba(245,166,35,.12);display:flex;align-items:center;gap:10px;justify-content:flex-end">
+          <div style="text-align:right">
+            <div style="font-size:15px;font-weight:700;color:#8C5A00;line-height:1.1">Inconsistency flag</div>
+            <div style="font-size:12px;color:#A8730A;margin-top:2px">For your review · never auto-applied</div>
+          </div>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.8"><path d="M12 2 1 21h22L12 2z"></path><path d="M12 9v5"></path><circle cx="12" cy="17.5" r=".8" fill="#B8860B"></circle></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Three supporting cards (compact) ── -->
+    <div class="grid-3" style="gap:24px;margin-top:36px">
+      <div class="card" style="padding:28px 30px">
+        <div class="ibub" style="width:48px;height:48px"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-content.svg"></div>
+        <h3 class="sub" style="margin-top:18px;font-size:22px">Your content</h3>
+        <p class="body" style="margin-top:8px;font-size:17px;line-height:1.45">elea takes over and structures your content, then displays it in the 'Review' window for correction and approval.</p>
+      </div>
+      <div class="card" style="padding:28px 30px">
+        <div class="ibub turq" style="width:48px;height:48px"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-db.svg"></div>
+        <h3 class="sub" style="margin-top:18px;font-size:22px">elea's database</h3>
+        <p class="body" style="margin-top:8px;font-size:17px;line-height:1.45">elea has access to patient data, medical history, previous reports, and specialized literature.</p>
+      </div>
+      <div class="card accent" style="padding:28px 30px">
+        <div class="ibub turq-solid" style="width:48px;height:48px"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-flag.svg"></div>
+        <h3 class="sub" style="margin-top:18px;font-size:22px">elea's notifications</h3>
+        <p class="body" style="margin-top:8px;font-size:17px;line-height:1.45">Based on your content and elea's knowledge, elea flags where inconsistencies or contradictions may arise.</p>
+      </div>
+    </div>
+  </div>
+  <img title="Back to overview" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(4)" src="https://yuna-collab.github.io/readdeck-ENG/elea-logo-en.svg" class="mini-logo">
+  <div class="page-num">08 / 15</div>
+</section>
+
+
+<!-- ───────────── 11 · SYNOPTIC REPORTS ───────────── -->
+<section data-label="09 Synoptic reports" class="bg-canvas">
+  <div style="position:absolute;inset:0;padding:110px 120px 130px;display:grid;grid-template-columns:1.15fr 1fr;gap:70px;align-items:center">
+    <div>
+      <div class="eyebrow">Synoptic reports</div>
+      <h2 class="sec" style="margin-top:22px">elea generates synoptic reports <span class="accent-tq">automatically</span> from the pathology report.</h2>
+      <div style="margin-top:40px;display:flex;flex-direction:column;gap:18px">
+        <div class="check-row" style="align-items:flex-start;gap:16px"><span class="dot" style="margin-top:4px"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-check.svg"></span><span>Synoptic reports are a key trend to <b style="color:var(--elea-deepblue)">harmonize pathological findings</b>.</span></div>
+        <div class="check-row" style="align-items:flex-start;gap:16px"><span class="dot" style="margin-top:4px"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-check.svg"></span><span>elea <b style="color:var(--elea-deepblue)">auto-fills</b> synoptic reports based on all case data and the pathology reports for a given case.</span></div>
+        <div class="check-row" style="align-items:flex-start;gap:16px"><span class="dot" style="margin-top:4px"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-check.svg"></span><span>Adherence to <b style="color:var(--elea-deepblue)">CAP</b> and <b style="color:var(--elea-deepblue)">ICCR</b> is ensured through easy inclusion and updates of templates.</span></div>
+        <div class="check-row" style="align-items:flex-start;gap:16px"><span class="dot" style="margin-top:4px"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-check.svg"></span><span>Structured data enables <b style="color:var(--elea-deepblue)">data analytics</b> across all reports, delivering medical and business insights.</span></div>
+      </div>
+    </div>
+
+    <div class="card elev" style="padding:0;overflow:hidden">
+      <div class="mock-header">
+        <div class="traffic"><span></span><span></span><span></span></div>
+        <span>Synoptic report <span class="tick"></span> CAP-compliant</span>
+        <span class="chip turquoise" style="margin-left:auto;padding:6px 14px;font-size:14px">✦ Auto-filled</span>
+      </div>
+      <div style="padding:32px 34px">
+        <div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--elea-ink-3);font-weight:700">Colorectal carcinoma · synoptic</div>
+        <div style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin-top:6px">Sample #942 · Müller, K.</div>
+        <div style="margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;font-size:17px">
+          <div><div style="color:var(--elea-ink-3);font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:600">Procedure</div><div style="color:var(--elea-ink-1);margin-top:3px">Hemicolectomy, right</div></div>
+          <div><div style="color:var(--elea-ink-3);font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:600">Histologic type</div><div style="color:var(--elea-ink-1);margin-top:3px">Adenocarcinoma, NOS</div></div>
+          <div><div style="color:var(--elea-ink-3);font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:600">Grade</div><div style="color:var(--elea-ink-1);margin-top:3px">G2 · moderately differentiated</div></div>
+          <div><div style="color:var(--elea-ink-3);font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:600">pT</div><div style="color:var(--elea-ink-1);margin-top:3px">pT3</div></div>
+          <div><div style="color:var(--elea-ink-3);font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:600">pN</div><div style="color:var(--elea-ink-1);margin-top:3px">pN0 (0/29)</div></div>
+          <div><div style="color:var(--elea-ink-3);font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:600">Margins</div><div style="color:var(--elea-ink-1);margin-top:3px">R0 · uninvolved</div></div>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap">
+          <span class="chip turquoise" style="padding:7px 14px;font-size:14px">CAP compliant</span>
+          <span class="chip navy" style="padding:7px 14px;font-size:14px">ICCR v4</span>
+          <span class="chip turquoise" style="padding:7px 14px;font-size:14px">Exportable · HL7</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img title="Back to overview" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(4)" src="https://yuna-collab.github.io/readdeck-ENG/elea-logo-en.svg" class="mini-logo">
+  <div class="page-num">09 / 15</div>
+</section>
+
+
+<!-- ───────────── 14 · AUTOMATIC GROSSING OF BIOPSIES ───────────── -->
+<section data-label="10 Automatic grossing" class="bg-white">
+  <div style="position:absolute;inset:0;padding:110px 120px 130px">
+    <div class="eyebrow">Automatic grossing of biopsies</div>
+    <h2 class="sec" style="margin-top:22px;max-width:1620px">Take an image. <span class="accent-tq">elea does the rest</span>.</h2>
+
+    <div class="grid-4" style="margin-top:36px">
+      <div class="card" style="padding:24px 26px">
+        <div class="step-num" style="width:38px;height:38px;font-size:14px">01</div>
+        <h3 style="font-size:20px;font-weight:700;color:var(--elea-deepblue);margin:14px 0 0;letter-spacing:-.01em">Image the biopsy</h3>
+        <p class="body" style="margin-top:8px;font-size:15px;line-height:1.4">Image of biopsy and cassette enables tracking, documentation, and automatic grossing.</p>
+      </div>
+      <div class="card" style="padding:24px 26px">
+        <div class="step-num" style="width:38px;height:38px;font-size:14px">02</div>
+        <h3 style="font-size:20px;font-weight:700;color:var(--elea-deepblue);margin:14px 0 0;letter-spacing:-.01em">Extract measurements</h3>
+        <p class="body" style="margin-top:8px;font-size:15px;line-height:1.4">elea uses iPad LiDAR and camera utilities to extract the count and size of tissue samples.</p>
+      </div>
+      <div class="card" style="padding:24px 26px">
+        <div class="step-num" style="width:38px;height:38px;font-size:14px">03</div>
+        <h3 style="font-size:20px;font-weight:700;color:var(--elea-deepblue);margin:14px 0 0;letter-spacing:-.01em">Create description</h3>
+        <p class="body" style="margin-top:8px;font-size:15px;line-height:1.4">elea prepares the textual description for review. Manual changes and full dictation remain available.</p>
+      </div>
+      <div class="card accent elev" style="padding:24px 26px">
+        <div class="step-num tq" style="width:38px;height:38px;font-size:14px">04</div>
+        <h3 style="font-size:20px;font-weight:700;color:var(--elea-deepblue);margin:14px 0 0;letter-spacing:-.01em">Prepare report</h3>
+        <p class="body" style="margin-top:8px;font-size:15px;line-height:1.4">elea drafts the pathology report, ready for review and sign-out.</p>
+      </div>
+    </div>
+
+    <!-- Visual capture flow -->
+    <div style="margin-top:28px;display:grid;grid-template-columns:1.05fr auto 1.4fr;gap:0;align-items:stretch">
+
+      <!-- LEFT: top-down cassette + biopsies, measured by elea -->
+      <div style="position:relative;background:linear-gradient(160deg,#02323b 0%, #00495a 100%);border-radius:20px;padding:20px;box-shadow:0 28px 60px rgba(0,41,91,.18);overflow:hidden">
+        <div style="position:absolute;inset:0;background:radial-gradient(700px 420px at 80% 20%, rgba(62,191,179,.20), transparent 60%)"></div>
+
+        <!-- Header strip -->
+        <div style="position:relative;display:flex;align-items:center;justify-content:space-between;color:rgba(255,255,255,.7);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700">
+          <div style="display:flex;align-items:center;gap:8px"><span style="width:7px;height:7px;border-radius:50%;background:#3EBFB3;box-shadow:0 0 8px #3EBFB3"></span> elea · auto-grossing</div>
+          <div>Cassette H-942</div>
+        </div>
+
+        <!-- SVG: real white plastic histology cassette held UPRIGHT (40.5 × 28.5 mm true aspect, rotated portrait) -->
+        <div style="position:relative;margin-top:14px;height:420px;border-radius:12px;background:radial-gradient(700px 500px at 50% 50%, #143840 0%, #0b1f24 80%);overflow:hidden;border:1px solid rgba(62,191,179,.25)">
+          <svg viewBox="0 0 360 420" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block">
+            <defs>
+              <!-- white plastic body -->
+              <linearGradient id="s10plastic" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FAFBFC"></stop>
+                <stop offset="55%" stop-color="#E6E9EC"></stop>
+                <stop offset="100%" stop-color="#C9CED2"></stop>
+              </linearGradient>
+              <linearGradient id="s10plasticDark" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#D5D9DD"></stop>
+                <stop offset="100%" stop-color="#A6ACB1"></stop>
+              </linearGradient>
+              <!-- inner well shadow -->
+              <radialGradient id="s10wellShade" cx=".5" cy=".5" r=".7">
+                <stop offset="0%" stop-color="#F4F5F7"></stop>
+                <stop offset="100%" stop-color="#D2D6DA"></stop>
+              </radialGradient>
+              <!-- biopsy core -->
+              <linearGradient id="s10biopsy" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#D8697C"></stop>
+                <stop offset="50%" stop-color="#B5435A"></stop>
+                <stop offset="100%" stop-color="#7E2939"></stop>
+              </linearGradient>
+              <!-- square-hole perforation pattern (matches photo) -->
+              <pattern id="s10holes" x="0" y="0" width="9" height="9" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="9" height="9" fill="url(#s10wellShade)"></rect>
+                <rect x="2" y="2" width="5" height="5" rx=".6" fill="#5A6166"></rect>
+                <rect x="2" y="2" width="5" height="5" rx=".6" fill="none" stroke="rgba(255,255,255,.55)" stroke-width=".5"></rect>
+              </pattern>
+              <filter id="s10soft" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation=".7"></feGaussianBlur>
+              </filter>
+            </defs>
+
+            <!-- faint scan grid -->
+            <g opacity=".15" stroke="#3EBFB3" stroke-width=".5">
+              <line x1="0" y1="84" x2="360" y2="84"></line>
+              <line x1="0" y1="168" x2="360" y2="168"></line>
+              <line x1="0" y1="252" x2="360" y2="252"></line>
+              <line x1="0" y1="336" x2="360" y2="336"></line>
+              <line x1="60" y1="0" x2="60" y2="420"></line>
+              <line x1="180" y1="0" x2="180" y2="420"></line>
+              <line x1="300" y1="0" x2="300" y2="420"></line>
+            </g>
+
+            <!-- soft cast shadow under cassette -->
+            <ellipse cx="180" cy="408" rx="110" ry="6" fill="rgba(0,0,0,.45)" filter="url(#s10soft)"></ellipse>
+
+            <!-- ── Cassette body (UPRIGHT / PORTRAIT) — 234 wide × 332 tall (28.5 × 40.5 mm true aspect) ── -->
+            <g>
+              <!-- main rectangle body (no top label tab — just the cassette frame) -->
+              <path d="M 70 50 L 290 50 Q 298 50 298 58 L 298 374 Q 298 382 290 382 L 70 382 Q 62 382 62 374 L 62 58 Q 62 50 70 50 Z" fill="url(#s10plastic)" stroke="#9097A0" stroke-width="1.2"></path>
+              <path d="M 70 56 L 290 56" stroke="rgba(255,255,255,.9)" stroke-width="1"></path>
+              <path d="M 70 376 L 290 376" stroke="rgba(0,0,0,.10)" stroke-width="1"></path>
+
+              <!-- inner well: square-hole perforation grid (208 wide × 264 tall, portrait) — extended upward now that the tab is gone -->
+              <rect x="76" y="68" width="208" height="264" rx="4" fill="url(#s10holes)"></rect>
+              <rect x="76" y="68" width="208" height="264" rx="4" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="1"></rect>
+              <!-- center divider rib -->
+              <rect x="76" y="199" width="208" height="2" fill="rgba(255,255,255,.7)"></rect>
+              <rect x="76" y="201" width="208" height="2" fill="rgba(0,0,0,.10)"></rect>
+
+              <!-- bottom handling lip -->
+              <rect x="58" y="382" width="244" height="8" rx="2" fill="url(#s10plasticDark)"></rect>
+              <line x1="66" y1="386" x2="294" y2="386" stroke="rgba(0,0,0,.18)" stroke-width=".7"></line>
+
+              <!-- left-edge reflection highlight -->
+              <rect x="64" y="56" width="3" height="320" fill="rgba(255,255,255,.7)" rx="1"></rect>
+
+              <!-- ── ID STICKER (printed label on the bottom of the cassette, like the photo) ── -->
+              <g>
+                <rect x="76" y="340" width="208" height="34" rx="2" fill="#FFFFFF" stroke="rgba(0,0,0,.18)" stroke-width=".8"></rect>
+                <line x1="76" y1="340" x2="284" y2="340" stroke="rgba(0,0,0,.10)" stroke-width=".5"></line>
+                <text x="86" y="358" fill="#1a1a1a" style="font-size:13px;font-weight:800;letter-spacing:.04em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">370956.1/10</text>
+                <text x="86" y="370" fill="#3a3a3a" style="font-size:9px;font-weight:600;letter-spacing:.04em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">2025/04/27</text>
+                <g transform="translate(248,346)">
+                  <rect x="0" y="0" width="22" height="22" fill="#FFFFFF" stroke="#1a1a1a" stroke-width=".4"></rect>
+                  <g fill="#1a1a1a">
+                    <rect x="1" y="1" width="2" height="2"></rect><rect x="3" y="1" width="2" height="2"></rect><rect x="7" y="1" width="2" height="2"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="13" y="1" width="2" height="2"></rect><rect x="17" y="1" width="2" height="2"></rect>
+                    <rect x="1" y="3" width="2" height="2"></rect><rect x="5" y="3" width="2" height="2"></rect><rect x="9" y="3" width="2" height="2"></rect><rect x="15" y="3" width="2" height="2"></rect><rect x="19" y="3" width="2" height="2"></rect>
+                    <rect x="1" y="5" width="2" height="2"></rect><rect x="3" y="5" width="2" height="2"></rect><rect x="7" y="5" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="17" y="5" width="2" height="2"></rect>
+                    <rect x="1" y="7" width="2" height="2"></rect><rect x="5" y="7" width="2" height="2"></rect><rect x="9" y="7" width="2" height="2"></rect><rect x="13" y="7" width="2" height="2"></rect><rect x="15" y="7" width="2" height="2"></rect>
+                    <rect x="1" y="9" width="2" height="2"></rect><rect x="3" y="9" width="2" height="2"></rect><rect x="7" y="9" width="2" height="2"></rect><rect x="11" y="9" width="2" height="2"></rect><rect x="19" y="9" width="2" height="2"></rect>
+                    <rect x="1" y="11" width="2" height="2"></rect><rect x="5" y="11" width="2" height="2"></rect><rect x="9" y="11" width="2" height="2"></rect><rect x="13" y="11" width="2" height="2"></rect><rect x="17" y="11" width="2" height="2"></rect>
+                    <rect x="1" y="13" width="2" height="2"></rect><rect x="7" y="13" width="2" height="2"></rect><rect x="11" y="13" width="2" height="2"></rect><rect x="15" y="13" width="2" height="2"></rect><rect x="19" y="13" width="2" height="2"></rect>
+                    <rect x="3" y="15" width="2" height="2"></rect><rect x="5" y="15" width="2" height="2"></rect><rect x="9" y="15" width="2" height="2"></rect><rect x="13" y="15" width="2" height="2"></rect><rect x="17" y="15" width="2" height="2"></rect>
+                    <rect x="1" y="17" width="2" height="2"></rect><rect x="5" y="17" width="2" height="2"></rect><rect x="7" y="17" width="2" height="2"></rect><rect x="11" y="17" width="2" height="2"></rect><rect x="15" y="17" width="2" height="2"></rect><rect x="19" y="17" width="2" height="2"></rect>
+                    <rect x="1" y="19" width="2" height="2"></rect><rect x="3" y="19" width="2" height="2"></rect><rect x="9" y="19" width="2" height="2"></rect><rect x="13" y="19" width="2" height="2"></rect><rect x="17" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect>
+                  </g>
+                  <rect x="0" y="0" width="1" height="22" fill="#1a1a1a"></rect>
+                  <rect x="0" y="21" width="22" height="1" fill="#1a1a1a"></rect>
+                </g>
+              </g>
+            </g>
+
+            <!-- ── Two biopsies sitting in the well (running VERTICALLY) ── -->
+            <g>
+              <path d="M 158 92 Q 154 145, 162 198" fill="none" stroke="url(#s10biopsy)" stroke-width="10" stroke-linecap="round"></path>
+              <path d="M 156 96 Q 152 145, 160 194" fill="none" stroke="rgba(255,210,218,.55)" stroke-width="2" stroke-linecap="round"></path>
+            </g>
+            <g>
+              <path d="M 200 248 Q 198 258, 200 268" fill="none" stroke="url(#s10biopsy)" stroke-width="9" stroke-linecap="round"></path>
+              <path d="M 198 250 Q 196 258, 198 266" fill="none" stroke="rgba(255,210,218,.5)" stroke-width="1.6" stroke-linecap="round"></path>
+            </g>
+
+            <!-- ── elea measurement overlay ── -->
+            <g stroke="#3EBFB3" stroke-width="1.4" fill="none">
+              <line x1="108" y1="88" x2="138" y2="88"></line>
+              <line x1="108" y1="202" x2="138" y2="202"></line>
+              <line x1="108" y1="88" x2="108" y2="130"></line>
+              <line x1="108" y1="160" x2="108" y2="202"></line>
+              <path d="M 106 92 L 108 88 L 110 92"></path>
+              <path d="M 106 198 L 108 202 L 110 198"></path>
+            </g>
+            <rect x="40" y="134" width="96" height="22" rx="11" fill="#0b1f24" stroke="#3EBFB3" stroke-width="1.2"></rect>
+            <text x="88" y="149" text-anchor="middle" fill="#3EBFB3" style="font-size:11px;font-weight:800;letter-spacing:.06em">2.0 cm</text>
+            <text x="88" y="122" text-anchor="middle" fill="rgba(62,191,179,.85)" style="font-size:9px;font-weight:700;letter-spacing:.14em">CORE 1</text>
+
+            <g stroke="#3EBFB3" stroke-width="1.4" fill="none">
+              <line x1="222" y1="246" x2="252" y2="246"></line>
+              <line x1="222" y1="270" x2="252" y2="270"></line>
+              <line x1="252" y1="246" x2="252" y2="252"></line>
+              <line x1="252" y1="264" x2="252" y2="270"></line>
+              <path d="M 250 250 L 252 246 L 254 250"></path>
+              <path d="M 250 266 L 252 270 L 254 266"></path>
+            </g>
+            <rect x="258" y="248" width="60" height="20" rx="10" fill="#0b1f24" stroke="#3EBFB3" stroke-width="1.2"></rect>
+            <text x="288" y="262" text-anchor="middle" fill="#3EBFB3" style="font-size:10px;font-weight:800;letter-spacing:.06em">0.3 cm</text>
+            <text x="288" y="240" text-anchor="middle" fill="rgba(62,191,179,.85)" style="font-size:9px;font-weight:700;letter-spacing:.14em">CORE 2</text>
+
+            <!-- Targeting reticles around each biopsy -->
+            <g stroke="#3EBFB3" stroke-width="1.4" fill="none">
+              <rect x="144" y="82" width="30" height="126" rx="4" stroke-dasharray="3 3" opacity=".7"></rect>
+              <rect x="190" y="242" width="22" height="32" rx="4" stroke-dasharray="3 3" opacity=".7"></rect>
+            </g>
+
+            <!-- corner crosshairs framing the capture -->
+            <g stroke="#3EBFB3" stroke-width="1.6" fill="none">
+              <path d="M 12 12 L 28 12 M 12 12 L 12 28"></path>
+              <path d="M 348 12 L 332 12 M 348 12 L 348 28"></path>
+              <path d="M 12 408 L 28 408 M 12 408 L 12 392"></path>
+              <path d="M 348 408 L 332 408 M 348 408 L 348 392"></path>
+            </g>
+
+            <!-- animated horizontal scan line sweeping down the upright cassette (only over the well, not the sticker) -->
+            <line x1="62" y1="70" x2="298" y2="70" stroke="#3EBFB3" stroke-width="1.2" opacity=".55">
+              <animate attributeName="y1" values="70;330;70" dur="3.6s" repeatCount="indefinite"></animate>
+              <animate attributeName="y2" values="70;330;70" dur="3.6s" repeatCount="indefinite"></animate>
+            </line>
+
+            <!-- "MEASURING…" pill -->
+            <g transform="translate(130,402)">
+              <rect x="0" y="-10" width="100" height="20" rx="10" fill="rgba(62,191,179,.18)" stroke="#3EBFB3" stroke-width="1"></rect>
+              <circle cx="14" cy="0" r="3" fill="#3EBFB3">
+                <animate attributeName="opacity" values="1;.3;1" dur="1.2s" repeatCount="indefinite"></animate>
+              </circle>
+              <text x="58" y="4" text-anchor="middle" fill="#3EBFB3" style="font-size:10px;font-weight:800;letter-spacing:.16em">MEASURING…</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- caption row -->
+        <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+          <div style="padding:8px 12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px">
+            <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:700">Cores detected</div>
+            <div style="font-size:18px;color:#fff;font-weight:800;margin-top:2px">2</div>
+          </div>
+          <div style="padding:8px 12px;background:rgba(62,191,179,.16);border:1px solid rgba(62,191,179,.45);border-radius:10px">
+            <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">Confidence</div>
+            <div style="font-size:18px;color:#fff;font-weight:800;margin-top:2px">99.2%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARROW -->
+      <div style="display:flex;align-items:center;justify-content:center;padding:0 22px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:800">elea AI</div>
+          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="var(--elea-turquoise)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+          <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#7f8a99;font-weight:700;text-align:center;line-height:1.4">Measure<br>+ describe</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: generated report -->
+      <div style="background:#fff;border:1px solid var(--elea-line);border-radius:20px;box-shadow:0 28px 60px rgba(0,41,91,.10);padding:22px 26px;position:relative;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="chip ai" style="padding:6px 12px;font-size:12px">✦ elea output</div>
+            <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7f8a99;font-weight:700">Macro description · auto-drafted</div>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--elea-turquoise);font-weight:700"><span style="width:6px;height:6px;border-radius:50%;background:var(--elea-turquoise);box-shadow:0 0 8px var(--elea-turquoise)"></span>Ready for review</div>
+        </div>
+
+        <div style="margin-top:14px;padding:18px 22px;background:var(--elea-deepblue-50);border:1px solid var(--elea-deepblue-100);border-radius:12px;flex:1;display:flex;align-items:center">
+          <div style="font-size:22px;line-height:1.4;color:var(--elea-deepblue);font-weight:500">
+            "A core biopsy with <span style="color:var(--elea-turquoise);font-weight:800">2 cm</span> length, a core biopsy with <span style="color:var(--elea-turquoise);font-weight:800">0.3 cm</span> length."
+          </div>
+        </div>
+
+        <div style="margin-top:14px;display:grid;grid-template-columns:repeat(3, 1fr);gap:0;border-top:1px solid var(--elea-line);padding-top:14px">
+          <div style="padding-right:14px;border-right:1px solid var(--elea-line)">
+            <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7f8a99;font-weight:700">Capture → draft</div>
+            <div style="font-size:22px;font-weight:800;color:var(--elea-deepblue);margin-top:2px">&lt; 4<span style="font-size:13px;color:#7f8a99;font-weight:700">s</span></div>
+          </div>
+          <div style="padding:0 14px;border-right:1px solid var(--elea-line)">
+            <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7f8a99;font-weight:700">Manual typing</div>
+            <div style="font-size:22px;font-weight:800;color:var(--elea-deepblue);margin-top:2px">0 keystrokes</div>
+          </div>
+          <div style="padding-left:14px">
+            <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7f8a99;font-weight:700">Override</div>
+            <div style="font-size:22px;font-weight:800;color:var(--elea-deepblue);margin-top:2px">Always</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img title="Back to overview" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(4)" src="https://yuna-collab.github.io/readdeck-ENG/elea-logo-en.svg" class="mini-logo">
+  <div class="page-num">10 / 15</div>
+</section>
+
+
+<!-- ───────────── 15 · LABORATORIES ───────────── -->
+<section data-label="11 Laboratories" class="bg-canvas">
+  <div style="position:absolute;inset:0;padding:110px 120px 130px">
+    <div>
+      <div class="eyebrow">Laboratories</div>
+      <h2 class="sec" style="margin-top:22px;max-width:1700px">Full support for <span class="accent-tq">every laboratory process</span>.</h2>
+      <p class="lead" style="margin-top:24px;max-width:1500px">Seamlessly delivered — from specimen tracking to specialized laboratories.</p>
+    </div>
+
+    <div class="grid-4" style="gap:28px;margin-top:48px">
+      <div class="card" style="padding:38px">
+        <div class="ibub"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-track.svg"></div>
+        <h3 style="font-size:26px;font-weight:700;color:var(--elea-deepblue);margin:24px 0 0;letter-spacing:-.01em">Specimen tracking</h3>
+        <p class="body" style="margin-top:12px;font-size:19px">Complete traceability of user inputs. Detailed tracking ensures you always know the exact location of each specimen.</p>
+      </div>
+      <div class="card" style="padding:38px">
+        <div class="ibub turq"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-mic.svg"></div>
+        <h3 style="font-size:26px;font-weight:700;color:var(--elea-deepblue);margin:24px 0 0;letter-spacing:-.01em">Lab communication</h3>
+        <p class="body" style="margin-top:12px;font-size:19px">Direct messaging within elea enables real-time coordination in the lab — ensuring that your message is read.</p>
+      </div>
+      <div class="card" style="padding:38px">
+        <div class="ibub"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-hardware.svg"></div>
+        <h3 style="font-size:26px;font-weight:700;color:var(--elea-deepblue);margin:24px 0 0;letter-spacing:-.01em">Hardware</h3>
+        <p class="body" style="margin-top:12px;font-size:19px">Comprehensive digital connectivity for scanners, stainers, and printers.</p>
+      </div>
+      <div class="card accent" style="padding:38px">
+        <div class="ibub turq-solid"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-ai.svg"></div>
+        <h3 style="font-size:26px;font-weight:700;color:var(--elea-deepblue);margin:24px 0 0;letter-spacing:-.01em">Specialized laboratories</h3>
+        <p class="body" style="margin-top:12px;font-size:19px">Comprehensive support for immunohistochemistry and full support for molecular pathology analyses.</p>
+      </div>
+    </div>
+  </div>
+  <img title="Back to overview" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(4)" src="https://yuna-collab.github.io/readdeck-ENG/elea-logo-en.svg" class="mini-logo">
+  <div class="page-num">11 / 15</div>
+</section>
+
+
+<!-- ───────────── 16 · CUSTOMER CONNECTIVITY ───────────── -->
+<section data-label="12 Customer connectivity" class="bg-white">
+  <div style="position:absolute;inset:0;padding:110px 120px 130px">
+    <div class="eyebrow">Complete customer connectivity</div>
+    <h2 class="sec" style="margin-top:22px;max-width:1620px">Deep communication with <span class="accent-tq">every referring physician</span>.</h2>
+
+    <div style="margin-top:64px;display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:30px">
+      <div class="card navy" style="padding:0;border-radius:24px;position:relative;overflow:hidden;min-height:340px">
+        <img src="https://yuna-collab.github.io/readdeck-ENG/clinic-staff.webp" alt="Hospital clinicians" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,41,91,.55) 0%, rgba(0,41,91,.92) 100%)"></div>
+        <div style="position:relative;padding:44px">
+          <div class="chip turquoise-solid" style="padding:8px 14px;font-size:14px">elea Portal</div>
+          <h3 class="sub" style="color:#fff;margin-top:20px">Direct line to referring physicians</h3>
+          <p class="body on-dark" style="margin-top:14px;font-size:20px">Direct and in-depth communication with referring physicians via the web portal. Fast order and report transmission — build strong relationships through the portal.</p>
+        </div>
+      </div>
+
+      <div class="card" style="padding:44px">
+        <div class="ibub turq"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-form.svg"></div>
+        <h3 class="sub" style="margin-top:26px;font-size:34px">Requisition form</h3>
+        <p class="body" style="margin-top:12px;font-size:19px">Digital and analog requisition forms are automatically scanned and recorded.</p>
+      </div>
+
+      <div class="card" style="padding:44px">
+        <div class="ibub"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-analog.svg"></div>
+        <h3 class="sub" style="margin-top:26px;font-size:34px">Analog</h3>
+        <p class="body" style="margin-top:12px;font-size:19px">Smart, AI-powered, and fast processing of analog requisition forms.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:30px">
+      <div class="card" style="padding:40px;display:flex;align-items:center;gap:28px">
+        <div style="font-size:48px;font-weight:700;letter-spacing:-.02em;color:var(--elea-deepblue);min-width:120px">FHIR</div>
+        <div style="height:64px;width:1px;background:var(--elea-line)"></div>
+        <p class="body" style="font-size:21px">Full compatibility with the modern FHIR standard.</p>
+      </div>
+      <div class="card" style="padding:40px;display:flex;align-items:center;gap:28px">
+        <div style="font-size:48px;font-weight:700;letter-spacing:-.02em;color:var(--elea-deepblue);min-width:120px">HL7</div>
+        <div style="height:64px;width:1px;background:var(--elea-line)"></div>
+        <p class="body" style="font-size:21px">Automatic digital transmission of all case data and reports.</p>
+      </div>
+    </div>
+  </div>
+  <img title="Back to overview" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(4)" src="https://yuna-collab.github.io/readdeck-ENG/elea-logo-en.svg" class="mini-logo">
+  <div class="page-num">12 / 15</div>
+</section>
+
+
+<!-- ───────────── 16b · WORKLISTS & STATISTICS ───────────── -->
+<section data-label="13 Statistics" class="bg-canvas">
+  <div style="position:absolute;inset:0;padding:110px 120px 130px">
+    <div class="eyebrow">Worklists &amp; statistics</div>
+    <h2 class="sec" style="margin-top:22px;max-width:1620px">Total <span class="accent-tq">transparency</span> across your pathology.</h2>
+    <p class="lead" style="margin-top:24px;max-width:1680px;white-space:nowrap">Extensive statistics and filterable worklists — full oversight at all times, so you can react immediately.</p>
+
+    <div style="margin-top:40px;display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:stretch">
+
+      <!-- Left: three capability cards -->
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="padding:30px 34px">
+          <div style="display:flex;align-items:flex-start;gap:22px">
+            <div class="ibub turq" style="flex-shrink:0"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-db.svg"></div>
+            <div style="flex:1">
+              <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:0;letter-spacing:-.01em">Filterable worklists</h3>
+              <p class="body" style="margin-top:6px;font-size:17px;line-height:1.4">Starting point for your team's day. elea organises cases by freely selectable criteria — Head of Department and lab management can adjust priorities at any time.</p>
+
+              <!-- Worklist priority bar -->
+              <div style="margin-top:14px;display:flex;align-items:center;gap:14px">
+                <div style="flex:1">
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--elea-muted);font-weight:700"><span>Cases in queue · today</span><span style="color:var(--elea-deepblue);font-weight:800">187</span></div>
+                  <div style="margin-top:6px;height:10px;border-radius:6px;background:rgba(0,41,91,.08);overflow:hidden;display:flex">
+                    <div style="width:22%;background:#ef4444" title="Urgent"></div>
+                    <div style="width:34%;background:#f59e0b" title="High"></div>
+                    <div style="width:30%;background:var(--elea-turquoise)" title="Standard"></div>
+                    <div style="width:14%;background:rgba(0,41,91,.18)" title="Low"></div>
+                  </div>
+                  <div style="margin-top:6px;display:flex;gap:14px;font-size:11px;color:var(--elea-muted)">
+                    <span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:2px;background:#ef4444"></span>Urgent 22%</span>
+                    <span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:2px;background:#f59e0b"></span>High 34%</span>
+                    <span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:2px;background:var(--elea-turquoise)"></span>Standard 30%</span>
+                    <span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:2px;background:rgba(0,41,91,.25)"></span>Low 14%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:30px 34px">
+          <div style="display:flex;align-items:flex-start;gap:22px">
+            <div class="ibub" style="flex-shrink:0"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-trend.svg"></div>
+            <div style="flex:1">
+              <h3 style="font-size:24px;font-weight:700;color:var(--elea-deepblue);margin:0;letter-spacing:-.01em">Operational trends</h3>
+              <p class="body" style="margin-top:6px;font-size:17px;line-height:1.4">Time trends for case durations, activity per key referring physician, and any other criteria essential for your executive team.</p>
+
+              <!-- Trend sparkline + delta -->
+              <div style="margin-top:14px;display:flex;align-items:center;gap:18px">
+                <div style="flex:1">
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--elea-muted);font-weight:700"><span>Avg. case duration · 12 weeks</span><span style="color:var(--elea-turquoise);font-weight:800">↓ 31%</span></div>
+                  <svg viewBox="0 0 240 56" preserveAspectRatio="none" style="margin-top:6px;width:100%;height:46px;display:block">
+                    <defs>
+                      <linearGradient id="sparkfill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#3EBFB3" stop-opacity=".35"></stop>
+                        <stop offset="100%" stop-color="#3EBFB3" stop-opacity="0"></stop>
+                      </linearGradient>
+                    </defs>
+                    <path d="M0,18 L20,22 L40,16 L60,26 L80,22 L100,30 L120,28 L140,36 L160,34 L180,42 L200,40 L220,46 L240,44 L240,56 L0,56 Z" fill="url(#sparkfill)"></path>
+                    <path d="M0,18 L20,22 L40,16 L60,26 L80,22 L100,30 L120,28 L140,36 L160,34 L180,42 L200,40 L220,46 L240,44" fill="none" stroke="#3EBFB3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <circle cx="240" cy="44" r="3.5" fill="#3EBFB3"></circle>
+                  </svg>
+                </div>
+                <div style="text-align:right;border-left:1px solid var(--elea-line);padding-left:16px">
+                  <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--elea-muted);font-weight:700">This week</div>
+                  <div style="font-size:24px;font-weight:800;color:var(--elea-deepblue);letter-spacing:-.02em;line-height:1">1.4<span style="font-size:13px;font-weight:600;color:var(--elea-muted);margin-left:3px">d</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card accent elev" style="padding:22px 28px">
+          <div style="display:flex;align-items:flex-start;gap:18px">
+            <div class="ibub turq-solid" style="flex-shrink:0;width:46px;height:46px"><img src="https://yuna-collab.github.io/readdeck-ENG/icon-sender.svg" style="width:22px;height:22px"></div>
+            <div style="flex:1">
+              <h3 style="font-size:22px;font-weight:700;color:var(--elea-deepblue);margin:0;letter-spacing:-.01em">Referrer statistics</h3>
+              <p class="body" style="margin-top:4px;font-size:14px;line-height:1.35">Full transparency over intake — trends in case numbers by referrer and case type, with individual reports per referrer including assigned staff and durations.</p>
+
+              <!-- Top referrers leaderboard -->
+              <div style="margin-top:10px;display:flex;flex-direction:column;gap:5px">
+                <div style="display:grid;grid-template-columns:110px 1fr 50px;align-items:center;gap:10px">
+                  <div style="font-size:12px;color:var(--elea-deepblue);font-weight:700">Mercy Health</div>
+                  <div style="height:6px;border-radius:4px;background:rgba(0,41,91,.06);overflow:hidden"><div style="width:92%;height:100%;background:var(--elea-turquoise);border-radius:4px"></div></div>
+                  <div style="font-size:12px;color:var(--elea-deepblue);font-weight:800;text-align:right">628</div>
+                </div>
+                <div style="display:grid;grid-template-columns:110px 1fr 50px;align-items:center;gap:10px">
+                  <div style="font-size:12px;color:var(--elea-deepblue);font-weight:700">St. Luke's</div>
+                  <div style="height:6px;border-radius:4px;background:rgba(0,41,91,.06);overflow:hidden"><div style="width:74%;height:100%;background:var(--elea-turquoise);opacity:.85;border-radius:4px"></div></div>
+                  <div style="font-size:12px;color:var(--elea-deepblue);font-weight:800;text-align:right">503</div>
+                </div>
+                <div style="display:grid;grid-template-columns:110px 1fr 50px;align-items:center;gap:10px">
+                  <div style="font-size:12px;color:var(--elea-deepblue);font-weight:700">Northshore</div>
+                  <div style="height:6px;border-radius:4px;background:rgba(0,41,91,.06);overflow:hidden"><div style="width:58%;height:100%;background:var(--elea-turquoise);opacity:.7;border-radius:4px"></div></div>
+                  <div style="font-size:12px;color:var(--elea-deepblue);font-weight:800;text-align:right">394</div>
+                </div>
+                <div style="display:grid;grid-template-columns:110px 1fr 50px;align-items:center;gap:10px">
+                  <div style="font-size:12px;color:var(--elea-deepblue);font-weight:700">+ 309 others</div>
+                  <div style="height:6px;border-radius:4px;background:rgba(0,41,91,.06);overflow:hidden"><div style="width:42%;height:100%;background:rgba(0,41,91,.28);border-radius:4px"></div></div>
+                  <div style="font-size:12px;color:var(--elea-muted);font-weight:700;text-align:right">3,287</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: mock dashboard -->
+      <div style="padding:44px;background:#fff;border:1px solid var(--elea-line);border-radius:28px;box-shadow:0 24px 60px rgba(0,41,91,.08);display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-muted);font-weight:600">Case throughput · last 30 days</div>
+            <div style="font-size:44px;font-weight:700;color:var(--elea-deepblue);letter-spacing:-.02em;margin-top:4px">4,812<span style="font-size:22px;font-weight:500;color:var(--elea-muted);margin-left:10px">cases</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(62,191,179,.14);border:1px solid rgba(62,191,179,.4);border-radius:999px">
+            <img src="https://yuna-collab.github.io/readdeck-ENG/icon-trend.svg" style="width:18px;height:18px;filter:invert(62%) sepia(47%) saturate(444%) hue-rotate(130deg) brightness(88%) contrast(85%)">
+            <span style="font-size:15px;font-weight:700;color:var(--elea-turquoise)">+42%</span>
+          </div>
+        </div>
+
+        <!-- Bar chart -->
+        <div style="margin-top:28px;display:flex;align-items:flex-end;gap:10px;height:180px;padding:0 4px;border-bottom:1px solid var(--elea-line)">
+          <!-- 14 bars: grey baseline, turquoise new -->
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:52%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:32%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:58%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:30%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:48%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:34%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:64%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:30%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:70%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:28%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:62%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:32%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:72%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:26%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:66%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:30%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:78%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:26%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:82%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:24%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:74%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:28%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:88%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:22%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:92%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:22%;border-radius:4px 4px 0 0"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column-reverse;gap:3px"><div style="background:var(--elea-turquoise);height:86%;border-radius:4px 4px 0 0"></div><div style="background:rgba(0,41,91,.14);height:24%;border-radius:4px 4px 0 0"></div></div>
+        </div>
+
+        <!-- Legend -->
+        <div style="margin-top:14px;display:flex;gap:22px;font-size:14px;color:var(--elea-muted)">
+          <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;background:var(--elea-turquoise);border-radius:2px"></span>With elea</div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;background:rgba(0,41,91,.14);border-radius:2px"></span>Previous period</div>
+        </div>
+
+        <!-- KPI row -->
+        <div style="margin-top:28px;padding-top:24px;border-top:1px solid var(--elea-line);display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
+          <div>
+            <div style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--elea-muted);font-weight:600">Turnaround</div>
+            <div style="font-size:32px;font-weight:700;color:var(--elea-deepblue);letter-spacing:-.02em;margin-top:6px">1.4<span style="font-size:16px;font-weight:500;color:var(--elea-muted);margin-left:4px">days</span></div>
+          </div>
+          <div>
+            <div style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--elea-muted);font-weight:600">Referrers</div>
+            <div style="font-size:32px;font-weight:700;color:var(--elea-deepblue);letter-spacing:-.02em;margin-top:6px">312</div>
+          </div>
+          <div>
+            <div style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--elea-muted);font-weight:600">Backlog</div>
+            <div style="font-size:32px;font-weight:700;color:var(--elea-turquoise);letter-spacing:-.02em;margin-top:6px">−58%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img title="Back to overview" style="cursor:pointer" onclick="document.querySelector('deck-stage').goTo(4)" src="https://yuna-collab.github.io/readdeck-ENG/elea-logo-en.svg" class="mini-logo">
+  <div class="page-num">13 / 15</div>
+</section>
+
+
+<!-- ───────────── 21 · PROOF · KEY METRICS ───────────── -->
+<section data-label="14 Proof" class="bg-navy">
+  <img src="https://yuna-collab.github.io/readdeck-ENG/brush-1.svg" class="brush" style="left:0;bottom:-100px;width:1920px;height:420px;opacity:.32;mix-blend-mode:screen">
+
+  <div style="position:absolute;inset:0;padding:110px 120px 130px;display:flex;flex-direction:column">
+    <div class="eyebrow on-dark">The numbers</div>
+    <h2 class="sec on-dark" style="margin-top:20px;max-width:1620px">Faster cases. Smarter AI. <span style="color:var(--elea-turquoise)">Leaner labs</span>.</h2>
+
+    <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;align-items:stretch">
+
+      <!-- CARD 1: Sample → receipt 1.32 days (gauge) -->
+      <div style="padding:48px 44px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:28px;display:flex;flex-direction:column">
+        <div style="font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:700">Sample → Receipt</div>
+
+        <!-- Half-circle gauge -->
+        <div style="position:relative;margin-top:28px;height:170px">
+          <svg viewBox="0 0 200 110" style="width:100%;height:100%;display:block">
+            <defs>
+              <linearGradient id="g14a" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#3EBFB3"></stop>
+                <stop offset="100%" stop-color="#7fd8cf"></stop>
+              </linearGradient>
+            </defs>
+            <!-- track -->
+            <path d="M10,100 A90,90 0 0 1 190,100" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="14" stroke-linecap="round"></path>
+            <!-- progress · ~33% of arc to indicate 1.32 of ~4 days legacy avg -->
+            <path d="M10,100 A90,90 0 0 1 190,100" fill="none" stroke="url(#g14a)" stroke-width="14" stroke-linecap="round" stroke-dasharray="282" stroke-dashoffset="188"></path>
+            <!-- pointer dot -->
+            <circle cx="54" cy="23" r="6" fill="#fff"></circle>
+          </svg>
+          <div style="position:absolute;left:0;right:0;bottom:24px;text-align:center">
+            <div style="font-size:64px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1">1.32<span style="font-size:22px;color:rgba(255,255,255,.6);font-weight:600;margin-left:6px">days</span></div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;font-size:18px;color:rgba(255,255,255,.78);line-height:1.45">Median time from sample arrival to receipt confirmation across deployed labs.</div>
+      </div>
+
+      <!-- CARD 2: 500k+ recordings (stacked corpus visual) -->
+      <div style="padding:48px 44px;background:linear-gradient(160deg,var(--elea-turquoise-900) 0%,var(--elea-turquoise-700) 100%);border-radius:28px;box-shadow:0 32px 80px rgba(115,202,196,.25);display:flex;flex-direction:column">
+        <div style="font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.78);font-weight:700">AI training corpus</div>
+
+        <!-- Stacked waveform/recording bars -->
+        <div style="margin-top:28px;height:170px;position:relative;display:flex;align-items:flex-end;justify-content:center;gap:5px;padding:0 4px">
+          <!-- generate 30 bars w/ varying heights as a waveform -->
+          <div style="width:6px;height:38%;background:rgba(255,255,255,.45);border-radius:3px"></div>
+          <div style="width:6px;height:62%;background:rgba(255,255,255,.55);border-radius:3px"></div>
+          <div style="width:6px;height:48%;background:rgba(255,255,255,.5);border-radius:3px"></div>
+          <div style="width:6px;height:78%;background:rgba(255,255,255,.7);border-radius:3px"></div>
+          <div style="width:6px;height:55%;background:rgba(255,255,255,.55);border-radius:3px"></div>
+          <div style="width:6px;height:88%;background:#fff;border-radius:3px"></div>
+          <div style="width:6px;height:70%;background:rgba(255,255,255,.65);border-radius:3px"></div>
+          <div style="width:6px;height:46%;background:rgba(255,255,255,.5);border-radius:3px"></div>
+          <div style="width:6px;height:92%;background:#fff;border-radius:3px"></div>
+          <div style="width:6px;height:60%;background:rgba(255,255,255,.6);border-radius:3px"></div>
+          <div style="width:6px;height:74%;background:rgba(255,255,255,.7);border-radius:3px"></div>
+          <div style="width:6px;height:40%;background:rgba(255,255,255,.45);border-radius:3px"></div>
+          <div style="width:6px;height:96%;background:#fff;border-radius:3px"></div>
+          <div style="width:6px;height:64%;background:rgba(255,255,255,.6);border-radius:3px"></div>
+          <div style="width:6px;height:50%;background:rgba(255,255,255,.5);border-radius:3px"></div>
+          <div style="width:6px;height:82%;background:rgba(255,255,255,.75);border-radius:3px"></div>
+          <div style="width:6px;height:68%;background:rgba(255,255,255,.65);border-radius:3px"></div>
+          <div style="width:6px;height:44%;background:rgba(255,255,255,.5);border-radius:3px"></div>
+          <div style="width:6px;height:90%;background:#fff;border-radius:3px"></div>
+          <div style="width:6px;height:58%;background:rgba(255,255,255,.6);border-radius:3px"></div>
+          <div style="width:6px;height:72%;background:rgba(255,255,255,.7);border-radius:3px"></div>
+          <div style="width:6px;height:42%;background:rgba(255,255,255,.45);border-radius:3px"></div>
+          <div style="width:6px;height:84%;background:rgba(255,255,255,.78);border-radius:3px"></div>
+          <div style="width:6px;height:54%;background:rgba(255,255,255,.55);border-radius:3px"></div>
+          <div style="width:6px;height:66%;background:rgba(255,255,255,.65);border-radius:3px"></div>
+          <div style="width:6px;height:36%;background:rgba(255,255,255,.4);border-radius:3px"></div>
+          <div style="width:6px;height:80%;background:rgba(255,255,255,.7);border-radius:3px"></div>
+          <div style="width:6px;height:52%;background:rgba(255,255,255,.55);border-radius:3px"></div>
+          <div style="width:6px;height:70%;background:rgba(255,255,255,.65);border-radius:3px"></div>
+          <div style="width:6px;height:46%;background:rgba(255,255,255,.5);border-radius:3px"></div>
+
+          <!-- baseline center line -->
+          <div style="position:absolute;left:0;right:0;bottom:50%;height:1px;background:rgba(255,255,255,.18)"></div>
+
+          <!-- Big number overlay -->
+          <div style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;pointer-events:none">
+            <div style="display:inline-block;padding:10px 18px;border-radius:14px;background:rgba(2,46,57,.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18)">
+              <div style="font-size:60px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1">500k<span style="color:rgba(255,255,255,.7)">+</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;font-size:18px;color:rgba(255,255,255,.92);line-height:1.45">Pathology voice recordings used to train elea — and growing every day.</div>
+      </div>
+
+      <!-- CARD 3: Transcriptionist reduction 30%+ in 6 months -->
+      <div style="padding:48px 44px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:28px;display:flex;flex-direction:column">
+        <div style="font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:700">Transcriptionist headcount</div>
+
+        <!-- Before / after person icons -->
+        <div style="margin-top:28px;height:170px;display:grid;grid-template-rows:auto 1fr;gap:12px">
+          <!-- before row: 10 figures -->
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:700;margin-bottom:6px">
+              <span>Before elea</span><span style="color:rgba(255,255,255,.7);font-weight:800">10 / lab</span>
+            </div>
+            <div style="display:flex;gap:6px">
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.55)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.55)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.55)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.55)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.55)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.55)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.55)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.55)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.55)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.55)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+            </div>
+          </div>
+          <!-- after row: 7 turquoise + 3 strike-through -->
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700;margin-bottom:6px">
+              <span>After 6 months with elea</span><span style="font-weight:800">−30%+</span>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center">
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="var(--elea-turquoise)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="var(--elea-turquoise)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="var(--elea-turquoise)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="var(--elea-turquoise)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="var(--elea-turquoise)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="var(--elea-turquoise)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="var(--elea-turquoise)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.18)" style="position:relative"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.18)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+              <svg width="22" height="28" viewBox="0 0 24 28" fill="rgba(255,255,255,.18)"><circle cx="12" cy="6" r="4"></circle><path d="M3 26c0-5 4-8 9-8s9 3 9 8z"></path></svg>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;display:flex;align-items:baseline;gap:10px">
+          <div style="font-size:48px;font-weight:800;color:var(--elea-turquoise);letter-spacing:-.02em;line-height:1">30%+</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.6);letter-spacing:.1em;text-transform:uppercase;font-weight:700">reduction · 6 months</div>
+        </div>
+        <div style="margin-top:10px;font-size:18px;color:rgba(255,255,255,.78);line-height:1.45">Average reduction of transcriptionists per lab within six months of implementing elea.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600">Source: aggregated data from elea customer deployments</div>
+  </div>
+  <div class="page-num on-dark">14 / 15</div>
+</section>
+
+
+<!-- ───────────── 15 · CTA — BOOK A 30-MIN DEMO ───────────── -->
+<section data-label="15 Contact" class="bg-navy-dark">
+  <img src="https://yuna-collab.github.io/readdeck-ENG/brush-2.svg" class="brush" style="right:-300px;top:0;width:1500px;height:900px;opacity:.22;mix-blend-mode:screen">
+  <div style="position:absolute;inset:0;background:radial-gradient(1400px 800px at 20% 80%, rgba(62,191,179,.18), transparent 60%)"></div>
+
+  <div style="position:absolute;inset:0;padding:90px 120px 110px;display:flex;flex-direction:column">
+    <div class="eyebrow on-dark">Your next move</div>
+    <h1 class="hero on-dark" style="margin-top:22px;max-width:1720px;font-size:112px;line-height:.98">See elea on <span style="color:var(--elea-turquoise)">your cases.</span><br>30 minutes. Live.</h1>
+
+    <!-- Big CTA banner: website + email -->
+    <div style="margin-top:44px;padding:48px 56px 52px;background:linear-gradient(160deg,var(--elea-turquoise-900) 0%,var(--elea-turquoise-700) 100%);border-radius:26px;box-shadow:0 32px 80px rgba(115,202,196,.25)">
+      <div style="display:flex;align-items:center;gap:18px;margin-bottom:26px">
+        <span style="width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 12px #fff"></span>
+        <span style="font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.88);font-weight:700">Book a demo</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1px 1fr;gap:56px;align-items:center">
+        <div>
+          <div style="font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:600">Online</div>
+          <a href="https://www.elea.health" target="_blank" rel="noopener" style="display:block;font-size:64px;font-weight:700;color:#fff;letter-spacing:-.025em;margin-top:8px;line-height:1;text-decoration:none">elea.health</a>
+        </div>
+        <div style="width:1px;height:90px;background:rgba(255,255,255,.22)"></div>
+        <div>
+          <div style="font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:600">Email</div>
+          <a href="https://elea.health/contact-us" target="_blank" rel="noopener" style="display:block;font-size:64px;font-weight:700;color:#fff;letter-spacing:-.025em;margin-top:8px;line-height:1;text-decoration:none">hello@elea.health</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 contact cards -->
+    <div style="margin-top:38px;display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <!-- Richard Gruner (BD USA) -->
+      <div style="padding:36px 38px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:22px">
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--elea-turquoise) 0%, var(--elea-deepblue) 100%);border:2px solid rgba(255,255,255,.2);flex-shrink:0;display:grid;place-items:center;font-size:20px;font-weight:700;color:#fff">RG</div>
+          <div>
+            <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">BD · USA</div>
+            <div style="font-size:22px;font-weight:700;color:#fff;margin-top:3px;letter-spacing:-.01em">Richard Gruner</div>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:6px;font-size:17px;color:#fff">
+          <a href="mailto:richard@elea.health" style="color:#fff;text-decoration:none">richard@elea.health</a>
+          <div style="color:rgba(255,255,255,.68);font-size:16px">+1 408 734 6817</div>
+        </div>
+      </div>
+
+      <!-- CMO -->
+      <div style="padding:36px 38px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:22px">
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--elea-cyan) 0%, var(--elea-deepblue) 100%);border:2px solid rgba(255,255,255,.2);flex-shrink:0;display:grid;place-items:center;font-size:20px;font-weight:700;color:#fff">SC</div>
+          <div>
+            <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--elea-turquoise);font-weight:700">CGO</div>
+            <div style="font-size:22px;font-weight:700;color:#fff;margin-top:3px;letter-spacing:-.01em">Sebastian Casu, MD</div>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:6px;font-size:17px;color:#fff">
+          <a href="mailto:sebastian@elea.health" style="color:#fff;text-decoration:none">sebastian@elea.health</a>
+          <div style="color:rgba(255,255,255,.6);font-size:16px">+1 650 248 0111</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute;bottom:44px;left:80px;display:flex;align-items:center;gap:18px">
+    <span style="color:rgba(255,255,255,.4);font-size:17px;letter-spacing:.12em;text-transform:uppercase">elea.health · San Francisco · Hamburg</span>
+  </div>
+  <div class="page-num on-dark">15 / 15</div>
+</section>
+
+</deck-stage>
+
+
+
+<div id="elea-nav" aria-hidden="false">
+  <button class="enav enav-prev" type="button" aria-label="Previous slide">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)"><path d="M9.375 3.75L20.625 15.0025L9.38125 26.25" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div id="elea-count" aria-live="polite">1 / 15</div>
+  <button class="enav enav-next" type="button" aria-label="Next slide">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.375 3.75L20.625 15.0025L9.38125 26.25" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+<style>
+  #elea-nav{ position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:14px; z-index:2147483600;
+    font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif; -webkit-user-select:none; user-select:none; }
+  #elea-nav .enav{ width:48px; height:48px; border-radius:50%; border:0; cursor:pointer;
+    display:grid; place-items:center; color:#024059; background:#E6E6E6;
+    transition:background .16s ease, color .16s ease, transform .16s ease; }
+  #elea-nav .enav svg{width:20px;height:20px;display:block}
+  #elea-nav .enav:hover{background:#D8DCDE; transform:translateY(-1px)}
+  #elea-nav .enav:active{transform:translateY(0)}
+  #elea-nav .enav:disabled{opacity:.4; cursor:default; background:#E6E6E6; color:#024059; transform:none}
+  #elea-count{ min-width:58px; text-align:center; font-size:14px; font-weight:600;
+    letter-spacing:.04em; color:#024059; background:rgba(255,255,255,.92); border:1px solid rgba(2,64,89,.10);
+    padding:8px 14px; border-radius:999px; font-variant-numeric:tabular-nums; box-shadow:0 4px 14px rgba(2,64,89,.12); }
+  @media (max-width:767px){
+    #elea-nav{ bottom:6px; gap:10px; }
+    #elea-nav .enav{ width:40px; height:40px; }
+    #elea-nav .enav svg{ width:17px; height:17px; }
+    #elea-count{ font-size:13px; padding:6px 12px; min-width:52px; }
+  }
+</style>
+<script>
+  (function(){
+    function wire(){
+      var deck = document.querySelector('deck-stage');
+      if(!deck || typeof deck.next !== 'function'){ return setTimeout(wire, 120); }
+      var nav=document.getElementById('elea-nav');
+      var prev=nav.querySelector('.enav-prev'), next=nav.querySelector('.enav-next'), count=document.getElementById('elea-count');
+      function total(){ return (deck.querySelectorAll(':scope > section, :scope > *').length) || 15; }
+      function sync(){ var t=deck.total||total(); var i=(typeof deck.index==='number')?deck.index:0;
+        count.textContent=(i+1)+' / '+t; prev.disabled=(i<=0); next.disabled=(i>=t-1); }
+      prev.addEventListener('click',function(){deck.prev();});
+      next.addEventListener('click',function(){deck.next();});
+      deck.addEventListener('slidechange',sync);
+      try{ if(deck.shadowRoot){var s=document.createElement('style');s.textContent='.overlay{display:none !important}';deck.shadowRoot.appendChild(s);} }catch(e){}
+      sync();
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wire); else wire();
+  })();
+</script>
+
+</body></html>
