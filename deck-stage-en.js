@@ -126,21 +126,22 @@
       position: fixed;
       left: 50%;
       bottom: 22px;
-      transform: translate(-50%, 6px) scale(0.92);
-      filter: blur(6px);
+      transform: translate(-50%, 0) scale(1);
+      filter: none;
       display: flex;
       align-items: center;
-      gap: 4px;
-      padding: 4px;
-      background: #000;
-      color: #fff;
+      gap: 6px;
+      padding: 6px;
+      background: rgba(255,255,255,0.92);
+      color: #024059;
       border-radius: 999px;
+      box-shadow: 0 2px 10px rgba(2,64,89,0.15);
       font-size: 12px;
       font-feature-settings: "tnum" 1;
       letter-spacing: 0.01em;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.8,.2,1), filter 260ms ease;
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 260ms ease;
       transform-origin: center bottom;
       z-index: 2147483000;
       user-select: none;
@@ -148,8 +149,6 @@
     .overlay[data-visible] {
       opacity: 1;
       pointer-events: auto;
-      transform: translate(-50%, 0) scale(1);
-      filter: blur(0);
     }
 
     .btn {
@@ -159,66 +158,36 @@
       border: 0;
       margin: 0;
       padding: 0;
-      color: inherit;
       font: inherit;
-      cursor: default;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       height: 28px;
       min-width: 28px;
       border-radius: 999px;
-      color: rgba(255,255,255,0.72);
+      color: #024059;
       transition: background 140ms ease, color 140ms ease;
       -webkit-tap-highlight-color: transparent;
     }
-    .btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
-    .btn:active { background: rgba(255,255,255,0.18); }
+    .btn:hover { background: rgba(2,64,89,0.08); color: #024059; }
+    .btn:active { background: rgba(2,64,89,0.14); }
     .btn:focus { outline: none; }
     .btn:focus-visible { outline: none; }
     .btn::-moz-focus-inner { border: 0; }
     .btn svg { width: 14px; height: 14px; display: block; }
-    .btn.reset {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      padding: 0 10px 0 12px;
-      gap: 6px;
-      color: rgba(255,255,255,0.72);
-    }
-    .btn.reset .kbd {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 16px;
-      height: 16px;
-      padding: 0 4px;
-      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-      font-size: 10px;
-      line-height: 1;
-      color: rgba(255,255,255,0.88);
-      background: rgba(255,255,255,0.12);
-      border-radius: 4px;
-    }
 
     .count {
       font-variant-numeric: tabular-nums;
-      color: #fff;
+      color: #024059;
       font-weight: 500;
       padding: 0 8px;
       min-width: 42px;
       text-align: center;
       font-size: 12px;
     }
-    .count .sep { color: rgba(255,255,255,0.45); margin: 0 3px; font-weight: 400; }
-    .count .total { color: rgba(255,255,255,0.55); }
-
-    .divider {
-      width: 1px;
-      height: 14px;
-      background: rgba(255,255,255,0.18);
-      margin: 0 2px;
-    }
+    .count .sep { color: rgba(2,64,89,0.45); margin: 0 3px; font-weight: 400; }
+    .count .total { color: rgba(2,64,89,0.55); }
 
     /* ── Print: one page per slide, no chrome ────────────────────────────
        The screen layout stacks every slide at inset:0 inside a scaled
@@ -356,7 +325,7 @@
       tzFwd.addEventListener('click', this._onTapForward);
       tapzones.append(tzBack, tzMid, tzFwd);
 
-      // Overlay: compact, solid black, with clickable controls.
+      // Overlay: compact, light pill, always visible, with clickable controls.
       const overlay = document.createElement('div');
       overlay.className = 'overlay export-hidden';
       overlay.setAttribute('role', 'toolbar');
@@ -369,13 +338,10 @@
         <button class="btn next" type="button" aria-label="Next slide" title="Next (→)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
         </button>
-        <span class="divider"></span>
-        <button class="btn reset" type="button" aria-label="Reset to first slide" title="Reset (R)">Reset<span class="kbd">R</span></button>
       `;
 
       overlay.querySelector('.prev').addEventListener('click', () => this._go(this._index - 1, 'click'));
       overlay.querySelector('.next').addEventListener('click', () => this._go(this._index + 1, 'click'));
-      overlay.querySelector('.reset').addEventListener('click', () => this._go(0, 'click'));
 
       this._root.append(style, stage, tapzones, overlay);
       this._canvas = canvas;
